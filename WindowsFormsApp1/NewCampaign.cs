@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +30,36 @@ namespace WindowsFormsApp1
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            {//connection string
+                string connection = "datasource = localhost; user id = tnt; password=tnt; database = dnd; persistsecurityinfo = True";
 
+                System.IO.MemoryStream ms = new System.IO.MemoryStream();
+               previewPicture.Image.Save(ms, previewPicture.Image.RawFormat);
+                byte[] img = ms.ToArray();
+
+                MySql.Data.MySqlClient.MySqlConnection Myconn = new MySql.Data.MySqlClient.MySqlConnection(connection);
+
+                String insertQuery = "INSERT INTO dnd.campaigns( campaignsName, campaignsDesc, campaignImg) VALUES( @name, @desc, @img)";
+                MySql.Data.MySqlClient.MySqlCommand MyCommand2 = new MySql.Data.MySqlClient.MySqlCommand(insertQuery, Myconn);
+
+
+
+                MyCommand2.Parameters.AddWithValue("@name", nameBox.Text);
+                MyCommand2.Parameters.AddWithValue("@desc", descBox.Text);
+                MyCommand2.Parameters.Add("@img", MySqlDbType.Blob);
+
+
+                MyCommand2.Parameters["@name"].Value = nameBox.Text;
+                MyCommand2.Parameters["@desc"].Value = descBox.Text;
+                MyCommand2.Parameters["@img"].Value = previewPicture.Image;
+
+                if (MyCommand2.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Data Inserted");
+                }
+
+               Myconn.Close();
+            }
         }
 
         private void backButton_Click(object sender, EventArgs e)

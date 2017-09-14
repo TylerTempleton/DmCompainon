@@ -55,6 +55,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dndDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dndDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dndDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +118,17 @@
     </None>
     <None Include="dndDataSet.xss">
       <DependentUpon>dndDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="dndDataSet1.xsc">
+      <DependentUpon>dndDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="dndDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dndDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dndDataSet1.xss">
+      <DependentUpon>dndDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

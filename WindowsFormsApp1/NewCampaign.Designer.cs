@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.descBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.uploadButton = new System.Windows.Forms.Button();
             this.submitButton = new System.Windows.Forms.Button();
@@ -49,12 +49,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name of Campaign";
             // 
-            // textBox1
+            // nameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(116, 26);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(149, 20);
-            this.textBox1.TabIndex = 1;
+            this.nameBox.Location = new System.Drawing.Point(116, 26);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(149, 20);
+            this.nameBox.TabIndex = 1;
             // 
             // label2
             // 
@@ -65,13 +65,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Short Description";
             // 
-            // textBox2
+            // descBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(116, 72);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(149, 74);
-            this.textBox2.TabIndex = 3;
+            this.descBox.Location = new System.Drawing.Point(116, 72);
+            this.descBox.Multiline = true;
+            this.descBox.Name = "descBox";
+            this.descBox.Size = new System.Drawing.Size(149, 74);
+            this.descBox.TabIndex = 3;
             // 
             // label3
             // 
@@ -131,9 +131,9 @@
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.uploadButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.descBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label1);
             this.Name = "NewCampaign";
             this.Text = "New Campaign";
@@ -146,9 +146,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox descBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button uploadButton;
         private System.Windows.Forms.Button submitButton;
