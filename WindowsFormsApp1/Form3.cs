@@ -16,5 +16,12 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            CamSelect f2 = new CamSelect();
+            Hide();
+            f2.Show();
+        }
     }
 }

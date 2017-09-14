@@ -38,6 +38,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.backButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,9 +108,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(208, 376);
+            this.button7.Location = new System.Drawing.Point(352, 376);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(127, 52);
+            this.button7.Size = new System.Drawing.Size(121, 52);
             this.button7.TabIndex = 7;
             this.button7.Text = "Random Loot";
             this.button7.UseVisualStyleBackColor = true;
@@ -131,11 +132,22 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(208, 376);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(127, 52);
+            this.backButton.TabIndex = 10;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 480);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -166,5 +178,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button backButton;
     }
 }

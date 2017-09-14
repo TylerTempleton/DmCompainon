@@ -16,5 +16,24 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+
+        private void selectButton_Click(object sender, EventArgs e)
+        {
+            MainMenu f3 = new MainMenu();
+            Hide();
+            f3.Show();
+        }
+
+        private void newButton_Click(object sender, EventArgs e)
+        {
+            NewCampaign f2 = new NewCampaign();
+            Hide();
+            f2.Show();
+        }
+
+        private void delButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
