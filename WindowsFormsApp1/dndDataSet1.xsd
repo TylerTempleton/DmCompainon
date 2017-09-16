@@ -19,7 +19,16 @@
               </DbSource>
             </MainSource>
             <Mappings />
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="dndConnectionString (Settings)" DbObjectName="dnd.campaigns" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="getCName" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="getCName" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="getCName">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT  `campaignsName` FROM `campaigns`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="loginTableAdapter" GeneratorDataComponentClassName="loginTableAdapter" Name="login" UserDataComponentName="loginTableAdapter">
             <MainSource>
@@ -43,11 +52,11 @@
   <xs:element name="dndDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="dndDataSet1" msprop:Generator_UserDSName="dndDataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="campaigns" msprop:Generator_TableClassName="campaignsDataTable" msprop:Generator_TableVarName="tablecampaigns" msprop:Generator_TablePropName="campaigns" msprop:Generator_RowDeletingName="campaignsRowDeleting" msprop:Generator_RowChangingName="campaignsRowChanging" msprop:Generator_RowEvHandlerName="campaignsRowChangeEventHandler" msprop:Generator_RowDeletedName="campaignsRowDeleted" msprop:Generator_UserTableName="campaigns" msprop:Generator_RowChangedName="campaignsRowChanged" msprop:Generator_RowEvArgName="campaignsRowChangeEvent" msprop:Generator_RowClassName="campaignsRow">
+        <xs:element name="campaigns" msprop:Generator_TableClassName="campaignsDataTable" msprop:Generator_TableVarName="tablecampaigns" msprop:Generator_RowChangedName="campaignsRowChanged" msprop:Generator_TablePropName="campaigns" msprop:Generator_RowDeletingName="campaignsRowDeleting" msprop:Generator_RowChangingName="campaignsRowChanging" msprop:Generator_RowEvHandlerName="campaignsRowChangeEventHandler" msprop:Generator_RowDeletedName="campaignsRowDeleted" msprop:Generator_RowClassName="campaignsRow" msprop:Generator_UserTableName="campaigns" msprop:Generator_RowEvArgName="campaignsRowChangeEvent">
           <xs:complexType>
           </xs:complexType>
         </xs:element>
-        <xs:element name="login" msprop:Generator_TableClassName="loginDataTable" msprop:Generator_TableVarName="tablelogin" msprop:Generator_TablePropName="login" msprop:Generator_RowDeletingName="loginRowDeleting" msprop:Generator_RowChangingName="loginRowChanging" msprop:Generator_RowEvHandlerName="loginRowChangeEventHandler" msprop:Generator_RowDeletedName="loginRowDeleted" msprop:Generator_UserTableName="login" msprop:Generator_RowChangedName="loginRowChanged" msprop:Generator_RowEvArgName="loginRowChangeEvent" msprop:Generator_RowClassName="loginRow">
+        <xs:element name="login" msprop:Generator_TableClassName="loginDataTable" msprop:Generator_TableVarName="tablelogin" msprop:Generator_RowChangedName="loginRowChanged" msprop:Generator_TablePropName="login" msprop:Generator_RowDeletingName="loginRowDeleting" msprop:Generator_RowChangingName="loginRowChanging" msprop:Generator_RowEvHandlerName="loginRowChangeEventHandler" msprop:Generator_RowDeletedName="loginRowDeleted" msprop:Generator_RowClassName="loginRow" msprop:Generator_UserTableName="login" msprop:Generator_RowEvArgName="loginRowChangeEvent">
           <xs:complexType>
           </xs:complexType>
         </xs:element>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace WindowsFormsApp1
 {
     public partial class NewCampaign : Form
     {
-        public NewCampaign()
+    public NewCampaign()
         {
             InitializeComponent();
         }
@@ -29,42 +31,56 @@ namespace WindowsFormsApp1
         }
 
         private void submitButton_Click(object sender, EventArgs e)
-        {
-            {//connection string
-                string connection = "datasource = localhost; user id = tnt; password=tnt; database = dnd; persistsecurityinfo = True";
+        {//connection string
 
-                System.IO.MemoryStream ms = new System.IO.MemoryStream();
-               previewPicture.Image.Save(ms, previewPicture.Image.RawFormat);
-                byte[] img = ms.ToArray();
+            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
+            {
+                conn_string.Server = "localhost";
+                conn_string.UserID = "tnt";
+                conn_string.Password = "tnt";
+                conn_string.Database = "dnd";
+            }
+            {
+                MySqlConnection conn = new MySqlConnection(conn_string.ToString());
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO dnd.campaigns (campaignsName, campaignsDesc, campaignsImg) Values (@name, @desc, @img)";
 
-                MySql.Data.MySqlClient.MySqlConnection Myconn = new MySql.Data.MySqlClient.MySqlConnection(connection);
-
-                String insertQuery = "INSERT INTO dnd.campaigns( campaignsName, campaignsDesc, campaignImg) VALUES( @name, @desc, @img)";
-                MySql.Data.MySqlClient.MySqlCommand MyCommand2 = new MySql.Data.MySqlClient.MySqlCommand(insertQuery, Myconn);
-
-
-
-                MyCommand2.Parameters.AddWithValue("@name", nameBox.Text);
-                MyCommand2.Parameters.AddWithValue("@desc", descBox.Text);
-                MyCommand2.Parameters.Add("@img", MySqlDbType.Blob);
-
-
-                MyCommand2.Parameters["@name"].Value = nameBox.Text;
-                MyCommand2.Parameters["@desc"].Value = descBox.Text;
-                MyCommand2.Parameters["@img"].Value = previewPicture.Image;
-
-                if (MyCommand2.ExecuteNonQuery() == 1)
+                cmd.Parameters.AddWithValue("@name", nameBox.Text);
+                cmd.Parameters.AddWithValue("@desc", descBox.Text);
+                
+                Image image = previewPicture.Image;
+                if (image != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    image.Save(memoryStream, ImageFormat.Png);
+                    byte[] imageBt = memoryStream.ToArray();
+                    cmd.Parameters.AddWithValue("@img", imageBt);
+                }
+                else {
+                    cmd.Parameters.AddWithValue("@img", null);
+                }
+                
+                
+                
+                
+                conn.Open();
+               // cmd.ExecuteNonQuery();
+                if (cmd.ExecuteNonQuery() == 1)
                 {
                     MessageBox.Show("Data Inserted");
                 }
 
-               Myconn.Close();
+                conn.Close();
             }
         }
+                    
+      
 
         private void backButton_Click(object sender, EventArgs e)
         {
-
-        }
+        CamSelect f2 = new CamSelect();
+        this.Hide();
+        f2.Show();
+    }
     }
 }
