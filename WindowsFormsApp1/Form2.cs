@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,12 +32,18 @@ namespace WindowsFormsApp1
 
 
         }
-
+        public delegate void cNamePass(ListBox listbox);
+        
+        
         private void selectButton_Click(object sender, EventArgs e)
-        { // instance of Main Menu form window
+        {
+            
+            // instance of Main Menu form window
             MainMenu f3 = new MainMenu();
             // hide old form
             Hide();
+            cNamePass cname = new cNamePass(f3.cNameLabelFill);
+            cname(this.listBox1);
             // show new form
             f3.Show();
         }
@@ -169,10 +177,56 @@ namespace WindowsFormsApp1
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            {
+                int index;
+                // Get the index of the selected item
+                index = listBox1.SelectedIndex;
 
+                //get the selected text
+                string selectedText = string.Empty;
+                MySqlConnection conn = new MySqlConnection(conn_string.ToString());
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE dnd.campaigns SET  campaignsDesc = @desc, campaignsImg = @img WHERE campaignsName = @name ";
+
+                cmd.Parameters.AddWithValue("@name", listBox1.GetItemText(listBox1.Items[index]).ToString());
+                cmd.Parameters.AddWithValue("@desc", textBox1.Text);
+
+                Image image = pictureBox1.Image;
+                if (image != null)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    image.Save(memoryStream, ImageFormat.Png);
+                    byte[] imageBt = memoryStream.ToArray();
+                    cmd.Parameters.AddWithValue("@img", imageBt);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@img", null);
+                }
+
+
+
+
+                conn.Open();
+                 //cmd.ExecuteNonQuery();
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Data Updated");
+                }
+
+                conn.Close();
+            }
         }
-      
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog camImage = new OpenFileDialog();
+            camImage.Filter = "Choose Image(*.jpg); *.png; *.gif)|*.jpg;*.png; *.gif";
+            if (camImage.ShowDialog() == DialogResult.OK)
+            {
+               pictureBox1.Image = Image.FromFile(camImage.FileName);
+            }
+        }
     }
 }
     

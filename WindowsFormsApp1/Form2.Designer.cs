@@ -99,6 +99,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // newButton
             // 
@@ -112,12 +113,11 @@
             // 
             // textBox1
             // 
-            this.textBox1.Enabled = false;
             this.textBox1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox1.Location = new System.Drawing.Point(162, 245);
+            this.textBox1.Location = new System.Drawing.Point(162, 244);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
+            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBox1.Size = new System.Drawing.Size(243, 84);
             this.textBox1.TabIndex = 6;
             // 

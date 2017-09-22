@@ -23,5 +23,49 @@ namespace WindowsFormsApp1
             Hide();
             f2.Show();
         }
+        public void cNameLabelFill(ListBox listBox1)
+        {
+            cNameLabel.Text = listBox1.SelectedItem.ToString();
+        }
+
+        private void notesButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void npcButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pcButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void wmButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void reButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void townButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dunButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lootButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
