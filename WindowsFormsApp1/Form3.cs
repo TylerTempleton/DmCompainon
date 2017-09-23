@@ -16,6 +16,8 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+        public delegate void cNamePass(Label label);
+
 
         private void backButton_Click(object sender, EventArgs e)
         {
@@ -31,6 +33,10 @@ namespace WindowsFormsApp1
         private void notesButton_Click(object sender, EventArgs e)
         {
 
+            
+            
+            Notes f4 = new Notes();
+            f4.Show();
         }
 
         private void npcButton_Click(object sender, EventArgs e)
@@ -45,7 +51,10 @@ namespace WindowsFormsApp1
 
         private void wmButton_Click(object sender, EventArgs e)
         {
-
+           WorldMap f5 = new WorldMap();
+            cNamePass cname = new cNamePass(f5.cNameLabelFill);
+            cname(this.cNameLabel);
+            f5.Show();
         }
 
         private void reButton_Click(object sender, EventArgs e)

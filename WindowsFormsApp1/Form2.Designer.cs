@@ -73,7 +73,7 @@
             // 
             // delButton
             // 
-            this.delButton.Location = new System.Drawing.Point(194, 335);
+            this.delButton.Location = new System.Drawing.Point(211, 335);
             this.delButton.Name = "delButton";
             this.delButton.Size = new System.Drawing.Size(75, 23);
             this.delButton.TabIndex = 2;
@@ -103,7 +103,7 @@
             // 
             // newButton
             // 
-            this.newButton.Location = new System.Drawing.Point(103, 334);
+            this.newButton.Location = new System.Drawing.Point(113, 335);
             this.newButton.Name = "newButton";
             this.newButton.Size = new System.Drawing.Size(75, 23);
             this.newButton.TabIndex = 5;
@@ -115,6 +115,7 @@
             // 
             this.textBox1.ImeMode = System.Windows.Forms.ImeMode.On;
             this.textBox1.Location = new System.Drawing.Point(162, 244);
+            this.textBox1.MaxLength = 200;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -137,7 +138,7 @@
             // 
             // updateButton
             // 
-            this.updateButton.Location = new System.Drawing.Point(275, 335);
+            this.updateButton.Location = new System.Drawing.Point(309, 335);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(75, 23);
             this.updateButton.TabIndex = 7;

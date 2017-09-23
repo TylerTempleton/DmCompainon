@@ -45,13 +45,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.Size = new System.Drawing.Size(97, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Name of Campaign";
+            this.label1.Text = "Name of Campaign\r\n(45 characters)\r\n";
             // 
             // nameBox
             // 
             this.nameBox.Location = new System.Drawing.Point(116, 26);
+            this.nameBox.MaxLength = 45;
             this.nameBox.Name = "nameBox";
             this.nameBox.Size = new System.Drawing.Size(149, 20);
             this.nameBox.TabIndex = 1;
@@ -61,13 +62,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(13, 72);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.Size = new System.Drawing.Size(88, 26);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Short Description";
+            this.label2.Text = "Short Description\r\n(200 characters)\r\n";
             // 
             // descBox
             // 
             this.descBox.Location = new System.Drawing.Point(116, 72);
+            this.descBox.MaxLength = 200;
             this.descBox.Multiline = true;
             this.descBox.Name = "descBox";
             this.descBox.Size = new System.Drawing.Size(149, 74);
