@@ -27,7 +27,7 @@ namespace WindowsFormsApp1
         {
             cNameLabel.Text = listBox1.SelectedItem.ToString();
         }
-
+      
         private void notesButton_Click(object sender, EventArgs e)
         {
 
@@ -67,5 +67,7 @@ namespace WindowsFormsApp1
         {
 
         }
+
+       
     }
 }

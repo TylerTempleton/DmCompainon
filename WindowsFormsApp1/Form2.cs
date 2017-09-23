@@ -33,19 +33,27 @@ namespace WindowsFormsApp1
 
         }
         public delegate void cNamePass(ListBox listbox);
-        
-        
+       
+
         private void selectButton_Click(object sender, EventArgs e)
         {
-            
-            // instance of Main Menu form window
-            MainMenu f3 = new MainMenu();
-            // hide old form
-            Hide();
-            cNamePass cname = new cNamePass(f3.cNameLabelFill);
-            cname(this.listBox1);
-            // show new form
-            f3.Show();
+            if (listBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please Select A Campaign To Continue");
+               
+            }
+            else {
+                // instance of Main Menu form window
+                MainMenu f3 = new MainMenu();
+                // hide old form
+                Hide();
+                //pass campaign data
+                cNamePass cname = new cNamePass(f3.cNameLabelFill);
+                cname(this.listBox1);
+               
+                // show new form
+                f3.Show();
+            }
         }
 
         private void newButton_Click(object sender, EventArgs e)

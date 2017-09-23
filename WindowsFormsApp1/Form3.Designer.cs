@@ -37,10 +37,10 @@
             this.dunButton = new System.Windows.Forms.Button();
             this.lootButton = new System.Windows.Forms.Button();
             this.reButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.campaignImg = new System.Windows.Forms.PictureBox();
             this.backButton = new System.Windows.Forms.Button();
             this.cNameLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.campaignImg)).BeginInit();
             this.SuspendLayout();
             // 
             // mainlabel
@@ -133,13 +133,13 @@
             this.reButton.UseVisualStyleBackColor = true;
             this.reButton.Click += new System.EventHandler(this.reButton_Click);
             // 
-            // pictureBox1
+            // campaignImg
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(208, 125);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(413, 182);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
+            this.campaignImg.Location = new System.Drawing.Point(208, 125);
+            this.campaignImg.Name = "campaignImg";
+            this.campaignImg.Size = new System.Drawing.Size(413, 182);
+            this.campaignImg.TabIndex = 9;
+            this.campaignImg.TabStop = false;
             // 
             // backButton
             // 
@@ -154,7 +154,7 @@
             // cNameLabel
             // 
             this.cNameLabel.AutoSize = true;
-            this.cNameLabel.Location = new System.Drawing.Point(393, 79);
+            this.cNameLabel.Location = new System.Drawing.Point(321, 63);
             this.cNameLabel.Name = "cNameLabel";
             this.cNameLabel.Size = new System.Drawing.Size(0, 13);
             this.cNameLabel.TabIndex = 11;
@@ -167,7 +167,7 @@
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.cNameLabel);
             this.Controls.Add(this.backButton);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.campaignImg);
             this.Controls.Add(this.reButton);
             this.Controls.Add(this.lootButton);
             this.Controls.Add(this.dunButton);
@@ -179,7 +179,7 @@
             this.Controls.Add(this.mainlabel);
             this.Name = "MainMenu";
             this.Text = "Main Menu";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.campaignImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,7 +196,7 @@
         private System.Windows.Forms.Button dunButton;
         private System.Windows.Forms.Button lootButton;
         private System.Windows.Forms.Button reButton;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox campaignImg;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label cNameLabel;
     }
