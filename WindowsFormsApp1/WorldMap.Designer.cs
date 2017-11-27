@@ -84,6 +84,7 @@
             this.Controls.Add(this.worldMapBox);
             this.Name = "WorldMap";
             this.Text = "WorldMap";
+            this.Load += new System.EventHandler(this.WorldMap_Load);
             ((System.ComponentModel.ISupportInitialize)(this.worldMapBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

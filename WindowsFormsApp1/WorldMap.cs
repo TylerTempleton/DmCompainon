@@ -26,6 +26,7 @@ namespace WindowsFormsApp1
         public WorldMap()
         {
             InitializeComponent();
+          
         }
         public void cNameLabelFill(Label cNameLabel)
         {
@@ -52,15 +53,17 @@ namespace WindowsFormsApp1
                 
 
                 Image image = worldMapBox.Image;
-               
+                if (image != null)
+                {
                     MemoryStream memoryStream = new MemoryStream();
                     image.Save(memoryStream, ImageFormat.Jpeg);
                     byte[] imageBt = memoryStream.ToArray();
                     cmd.Parameters.AddWithValue("@img", imageBt);
-                
-
-
-
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@img", null);
+                }
 
                 conn.Open();
                 // cmd.ExecuteNonQuery();
@@ -72,7 +75,16 @@ namespace WindowsFormsApp1
                 conn.Close();
             }
         }
-        private void getMap()
+        
+            
+
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void WorldMap_Load(object sender, EventArgs e)
         {
             MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
             MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
@@ -84,12 +96,12 @@ namespace WindowsFormsApp1
                 cmd.CommandText = "SELECT * FROM dnd.campaigns WHERE  campaignsName = @name";
                 cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
 
-                //get the data and show it in any controls like gridview or whatever you want to do with data
+                //get the data and show it 
 
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 { // reader filters the campaign names from the result
-                   
+
                     Boolean logthing = reader.IsDBNull(3);
                     Debug.WriteLine(logthing);
                     if (!reader.IsDBNull(3))
@@ -98,21 +110,13 @@ namespace WindowsFormsApp1
                         MemoryStream ms = new MemoryStream(byteBLOBData);
                         worldMapBox.Image = Image.FromStream(ms);
                     }
-                    
+
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-            
-
-
-        private void closeButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

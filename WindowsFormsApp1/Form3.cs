@@ -33,10 +33,15 @@ namespace WindowsFormsApp1
         private void notesButton_Click(object sender, EventArgs e)
         {
 
+            {
+                Notes f4 = new Notes();
+                cNamePass cname = new cNamePass(f4.cNameLabelFill);
+                cname(this.cNameLabel);
+                f4.Show();
+            }
+
             
             
-            Notes f4 = new Notes();
-            f4.Show();
         }
 
         private void npcButton_Click(object sender, EventArgs e)
