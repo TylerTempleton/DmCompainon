@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +13,8 @@ namespace WindowsFormsApp1
 {
     public partial class Notes : Form
     {
-        MySql.Data.MySqlClient.MySqlConnectionStringBuilder conn_string = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "tnt",
-            Password = "tnt",
-            Database = "dnd"
-        };
+       string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+       
         public void cNameLabelFill(Label cNameLabel)
         {
             cNoteNameLabel.Text = cNameLabel.Text;
@@ -41,12 +36,12 @@ namespace WindowsFormsApp1
         private void saveButton_Click(object sender, EventArgs e)
         {
             
-            MySqlConnection conn = new MySqlConnection(conn_string.ToString());
-            MySqlCommand cmd = conn.CreateCommand();
+            SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+            SQLiteCommand cmd = conn.CreateCommand();
 
             //open DB connection
             conn.Open();
-            cmd.CommandText = "UPDATE dnd.campaigns SET  campaignNotes = @note  WHERE campaignsName = @name ";
+            cmd.CommandText = "UPDATE campaigns SET  campaignNotes = @note  WHERE campaignsName = @name ";
             cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
             cmd.Parameters.AddWithValue("@note", noteBox.Text);
             cmd.ExecuteNonQuery();
@@ -60,14 +55,14 @@ namespace WindowsFormsApp1
         //Load old notes method
         private void Notes_Load(object sender, EventArgs e)
         {
-            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
-            MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
-            MySql.Data.MySqlClient.MySqlDataReader reader;
+           SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+           SQLiteCommand cmd = conn.CreateCommand();
+            SQLiteDataReader reader;
 
             //open DB connection
             conn.Open();
             //select notes
-            cmd.CommandText = "SELECT campaignNotes FROM dnd.campaigns WHERE campaignsName = @name";
+            cmd.CommandText = "SELECT campaignNotes FROM campaigns WHERE campaignsName = @name";
             cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
 
 
@@ -76,7 +71,7 @@ namespace WindowsFormsApp1
             if (reader.Read())
             {
                 string stuff = reader["campaignNotes"].ToString();
-                noteBox.Text = reader.GetString("campaignNotes");
+                noteBox.Text = reader.GetString(reader.GetOrdinal("campaignNotes"));
                
             }
             else

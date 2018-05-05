@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.dndDataSet1 = new WindowsFormsApp1.dndDataSet1();
+            
             this.selectButton = new System.Windows.Forms.Button();
             this.delButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,10 +38,9 @@
             this.newButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.campaignsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.campaignsTableAdapter = new WindowsFormsApp1.dndDataSet1TableAdapters.campaignsTableAdapter();
+            
             this.campaignsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.updateButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dndDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.campaignsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.campaignsBindingSource1)).BeginInit();
@@ -58,9 +57,7 @@
             // 
             // dndDataSet1
             // 
-            this.dndDataSet1.DataSetName = "dndDataSet1";
-            this.dndDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
+           // 
             // selectButton
             // 
             this.selectButton.Location = new System.Drawing.Point(22, 335);
@@ -125,16 +122,16 @@
             // campaignsBindingSource
             // 
             this.campaignsBindingSource.DataMember = "campaigns";
-            this.campaignsBindingSource.DataSource = this.dndDataSet1;
+
             // 
             // campaignsTableAdapter
             // 
-            this.campaignsTableAdapter.ClearBeforeFill = true;
+            
             // 
             // campaignsBindingSource1
             // 
             this.campaignsBindingSource1.DataMember = "campaigns";
-            this.campaignsBindingSource1.DataSource = this.dndDataSet1;
+            
             // 
             // updateButton
             // 
@@ -162,7 +159,7 @@
             this.Name = "CamSelect";
             this.Text = "CampaignSelect";
             this.Load += new System.EventHandler(this.CamSelect_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dndDataSet1)).EndInit();
+       
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.campaignsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.campaignsBindingSource1)).EndInit();
@@ -180,9 +177,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button newButton;
         private System.Windows.Forms.TextBox textBox1;
-        private dndDataSet1 dndDataSet1;
+        
         private System.Windows.Forms.BindingSource campaignsBindingSource;
-        private dndDataSet1TableAdapters.campaignsTableAdapter campaignsTableAdapter;
+      
         private System.Windows.Forms.BindingSource campaignsBindingSource1;
         private System.Windows.Forms.Button updateButton;
     }

@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +16,8 @@ namespace WindowsFormsApp1
 {
     public partial class WorldMap : Form
     {
-        MySql.Data.MySqlClient.MySqlConnectionStringBuilder conn_string = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "tnt",
-            Password = "tnt",
-            Database = "dnd"
-        };
+        string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+
         public WorldMap()
         {
             InitializeComponent();
@@ -45,9 +40,9 @@ namespace WindowsFormsApp1
             }
           
             {
-                MySqlConnection conn = new MySqlConnection(conn_string.ToString());
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE dnd.campaigns SET campaignWorldMap = @img  WHERE campaignsName = @name";
+               SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+               SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE campaigns SET campaignWorldMap = @img  WHERE campaignsName = @name";
 
                 cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
                 
@@ -86,14 +81,14 @@ namespace WindowsFormsApp1
 
         private void WorldMap_Load(object sender, EventArgs e)
         {
-            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
-            MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
-            MySql.Data.MySqlClient.MySqlDataReader reader;
+          SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+           SQLiteCommand cmd = conn.CreateCommand();
+            SQLiteDataReader reader;
             try
             {//open DB connection
                 conn.Open();
                 //select all campaigns
-                cmd.CommandText = "SELECT * FROM dnd.campaigns WHERE  campaignsName = @name";
+                cmd.CommandText = "SELECT * FROM campaigns WHERE  campaignsName = @name";
                 cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
 
                 //get the data and show it 

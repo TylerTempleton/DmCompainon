@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,13 +16,7 @@ namespace WindowsFormsApp1
 {
     public partial class CamSelect : Form
     {// connection string to MySql database
-        MySql.Data.MySqlClient.MySqlConnectionStringBuilder conn_string = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "tnt",
-            Password = "tnt",
-            Database = "dnd"
-        };
+        string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
         public CamSelect()
         {//start up form
             InitializeComponent();
@@ -69,15 +63,17 @@ namespace WindowsFormsApp1
         {// store name of list item selected
             string i = listBox1.SelectedItem.ToString();
             //set up connection to DB
-            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
-            MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
-           
+            
+            SQLiteConnection conn = new SQLiteConnection(conn_string);
+
+            SQLiteCommand cmd = new SQLiteCommand ("DELETE FROM campaigns where campaignsName = @name");
+            
 
            
             //open DB connection
                 conn.Open();
             //MySQL statment to delete based on campaign name that is paramiterized to prevent sql injection
-                cmd.CommandText =( "DELETE FROM dnd.campaigns where campaignsName = @name");
+           
             cmd.Parameters.AddWithValue("@name", i);
             // execute command
             cmd.ExecuteNonQuery();
@@ -111,14 +107,14 @@ namespace WindowsFormsApp1
 
 
                 //write your sql and pass the text as one parameter
-                MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
-                MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
-                MySql.Data.MySqlClient.MySqlDataReader reader;
+                SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+                SQLiteCommand cmd = conn.CreateCommand();
+                SQLiteDataReader reader;
                 //do sql stuff
                 //open DB connection
                 conn.Open();
 
-                cmd.CommandText = "SELECT * FROM dnd.campaigns where campaignsName = @name";
+                cmd.CommandText = "SELECT * FROM campaigns where campaignsName = @name";
                 cmd.Parameters.AddWithValue("@name", selectedText);
 
                 //get the data and show it in any controls like gridview or whatever you want to do with data
@@ -126,7 +122,7 @@ namespace WindowsFormsApp1
                  reader = cmd.ExecuteReader();
                 while (reader.Read())
                 { // reader filters the campaign names from the result
-                    string descStuff = reader.GetString("campaignsDesc");
+                    string descStuff = reader.GetString(reader.GetOrdinal("campaignsDesc"));
                     Boolean logthing = reader.IsDBNull(3);
                     Debug.WriteLine(logthing);
                     if (!reader.IsDBNull(3))
@@ -149,32 +145,33 @@ namespace WindowsFormsApp1
                      textBox1.Text = descStuff;
                     
                    
-                 } 
-
+                 }
+                conn.Close();
             }
         }
         void GetList()
         {// clear listbox for reloading the list
             listBox1.Items.Clear();
             //connect to database and initilize reader
-            MySql.Data.MySqlClient.MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(conn_string.ToString());
-            MySql.Data.MySqlClient.MySqlCommand cmd = conn.CreateCommand();
-            MySql.Data.MySqlClient.MySqlDataReader reader;
+            SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+            SQLiteCommand cmd = conn.CreateCommand();
+            SQLiteDataReader reader;
 
             try
             {//open DB connection
                 conn.Open();
                 //select all campaigns
-                cmd.CommandText = "SELECT * FROM dnd.campaigns";
+                cmd.CommandText = "SELECT * FROM campaigns";
                 //reader loads in results
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 { // reader filters the campaign names from the result
-                    string sName = reader.GetString("campaignsName");
+                    string sName = reader.GetString(reader.GetOrdinal("campaignsName"));
                     // add the names to the listbox
                     listBox1.Items.Add(sName);
                     
                 }
+                conn.Close();
             }
             catch (Exception ex)
             {
@@ -192,9 +189,9 @@ namespace WindowsFormsApp1
 
                 //get the selected text
                 string selectedText = string.Empty;
-                MySqlConnection conn = new MySqlConnection(conn_string.ToString());
-                MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE dnd.campaigns SET  campaignsDesc = @desc, campaignsImg = @img WHERE campaignsName = @name ";
+                SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
+                SQLiteCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE campaigns SET  campaignsDesc = @desc, campaignsImg = @img WHERE campaignsName = @name ";
 
                 cmd.Parameters.AddWithValue("@name", listBox1.GetItemText(listBox1.Items[index]).ToString());
                 cmd.Parameters.AddWithValue("@desc", textBox1.Text);

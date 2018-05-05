@@ -1,4 +1,4 @@
-﻿using System.Data.SQLite;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,12 +33,17 @@ namespace WindowsFormsApp1
         private void submitButton_Click(object sender, EventArgs e)
         {//connection string
 
-             string conn_string = "Data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
-
+            MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
             {
-                SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-                SQLiteCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO campaigns (campaignsName, campaignsDesc, campaignsImg) Values (@name, @desc, @img)";
+                conn_string.Server = "localhost";
+                conn_string.UserID = "tnt";
+                conn_string.Password = "tnt";
+                conn_string.Database = "dnd";
+            }
+            {
+                MySqlConnection conn = new MySqlConnection(conn_string.ToString());
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO dnd.campaigns (campaignsName, campaignsDesc, campaignsImg) Values (@name, @desc, @img)";
 
                 cmd.Parameters.AddWithValue("@name", nameBox.Text);
                 cmd.Parameters.AddWithValue("@desc", descBox.Text);
