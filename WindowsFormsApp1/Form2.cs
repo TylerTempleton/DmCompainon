@@ -63,27 +63,29 @@ namespace WindowsFormsApp1
         {// store name of list item selected
             string i = listBox1.SelectedItem.ToString();
             //set up connection to DB
-            
-            SQLiteConnection conn = new SQLiteConnection(conn_string);
 
-            SQLiteCommand cmd = new SQLiteCommand ("DELETE FROM campaigns where campaignsName = @name");
-            
-
-           
-            //open DB connection
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string))
+            {//open DB connection
                 conn.Open();
-            //MySQL statment to delete based on campaign name that is paramiterized to prevent sql injection
-           
-            cmd.Parameters.AddWithValue("@name", i);
-            // execute command
-            cmd.ExecuteNonQuery();
-                {//popup for user to know it has been deleted
-                    MessageBox.Show("Data deleted");
-                }
-            // close connection
-                conn.Close();
-            GetList();
+                using (SQLiteCommand cmd = new SQLiteCommand("DELETE FROM campaigns where campaignsName = @name", conn))
+                {
 
+
+                    
+                    //MySQL statment to delete based on campaign name that is paramiterized to prevent sql injection
+
+                    cmd.Parameters.AddWithValue("@name", i);
+                    // execute command
+                    cmd.ExecuteNonQuery();
+                    {//popup for user to know it has been deleted
+                        MessageBox.Show("Data deleted");
+                    }
+                    // close connection
+                    conn.Close();
+                    GetList();
+
+                }
+            }
         }
 
         void CamSelect_Load(object sender, EventArgs e)
@@ -107,77 +109,87 @@ namespace WindowsFormsApp1
 
 
                 //write your sql and pass the text as one parameter
-                SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-                SQLiteCommand cmd = conn.CreateCommand();
-                SQLiteDataReader reader;
-                //do sql stuff
-                //open DB connection
-                conn.Open();
-
-                cmd.CommandText = "SELECT * FROM campaigns where campaignsName = @name";
-                cmd.Parameters.AddWithValue("@name", selectedText);
-
-                //get the data and show it in any controls like gridview or whatever you want to do with data
-               
-                 reader = cmd.ExecuteReader();
-                while (reader.Read())
-                { // reader filters the campaign names from the result
-                    string descStuff = reader.GetString(reader.GetOrdinal("campaignsDesc"));
-                    Boolean logthing = reader.IsDBNull(3);
-                    Debug.WriteLine(logthing);
-                    if (!reader.IsDBNull(3))
+                using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
+                {//open DB connection
+                    conn.Open();
+                    string stm = "SELECT * FROM campaigns where campaignsName = @name";
+                    using (SQLiteCommand cmd = new SQLiteCommand(stm,conn))
                     {
-                        byte[] byteBLOBData = (byte[])reader["campaignsImg"];
-                        MemoryStream ms = new MemoryStream(byteBLOBData);
-                        pictureBox1.Image = Image.FromStream(ms);
+                        cmd.Parameters.AddWithValue("@name", selectedText);
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            
+                            
+                            
+                          
+                           
+
+                            //get the data and show it in any controls like gridview or whatever you want to do with data
+
+
+                            while (reader.Read())
+                            { // reader filters the campaign names from the result
+                                string descStuff = reader.GetString(reader.GetOrdinal("campaignsDesc"));
+                                Boolean logthing = reader.IsDBNull(3);
+                                Debug.WriteLine(logthing);
+                                if (!reader.IsDBNull(3))
+                                {
+                                    byte[] byteBLOBData = (byte[])reader["campaignsImg"];
+                                    MemoryStream ms = new MemoryStream(byteBLOBData);
+                                    pictureBox1.Image = Image.FromStream(ms);
+                                }
+                                else
+                                {
+
+
+
+                                    pictureBox1.Image = null;
+                                }
+
+
+                                // add the names to the description textbox
+                                textBox1.Clear();
+                                textBox1.Text = descStuff;
+
+
+                            }
+                            conn.Close();
+                        }
                     }
-                    else
-                    {
-
-
-
-                        pictureBox1.Image = null;
-                    }
-
-
-                    // add the names to the description textbox
-                    textBox1.Clear();
-                     textBox1.Text = descStuff;
-                    
-                   
-                 }
-                conn.Close();
+                }
             }
         }
         void GetList()
         {// clear listbox for reloading the list
             listBox1.Items.Clear();
             //connect to database and initilize reader
-            SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-            SQLiteCommand cmd = conn.CreateCommand();
-            SQLiteDataReader reader;
-
-            try
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
             {//open DB connection
                 conn.Open();
-                //select all campaigns
-                cmd.CommandText = "SELECT * FROM campaigns";
-                //reader loads in results
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                { // reader filters the campaign names from the result
-                    string sName = reader.GetString(reader.GetOrdinal("campaignsName"));
-                    // add the names to the listbox
-                    listBox1.Items.Add(sName);
-                    
-                }
-                conn.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                using (SQLiteCommand cmd = conn.CreateCommand())
+                {
+                    //select all campaigns
+                    cmd.CommandText = "SELECT * FROM campaigns";
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        
+                          
+                            
+                            //reader loads in results
 
+                            while (reader.Read())
+                            { // reader filters the campaign names from the result
+                                string sName = reader.GetString(reader.GetOrdinal("campaignsName"));
+                                // add the names to the listbox
+                                listBox1.Items.Add(sName);
+
+                            }
+                            conn.Close();
+                    
+                       
+                    }
+                }
+            }
         }
 
         private void updateButton_Click(object sender, EventArgs e)
@@ -189,39 +201,44 @@ namespace WindowsFormsApp1
 
                 //get the selected text
                 string selectedText = string.Empty;
-                SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-                SQLiteCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE campaigns SET  campaignsDesc = @desc, campaignsImg = @img WHERE campaignsName = @name ";
-
-                cmd.Parameters.AddWithValue("@name", listBox1.GetItemText(listBox1.Items[index]).ToString());
-                cmd.Parameters.AddWithValue("@desc", textBox1.Text);
-
-                Image image = pictureBox1.Image;
-                if (image != null)
+                using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
                 {
-                    MemoryStream memoryStream = new MemoryStream();
-                    image.Save(memoryStream, ImageFormat.Png);
-                    byte[] imageBt = memoryStream.ToArray();
-                    cmd.Parameters.AddWithValue("@img", imageBt);
+                    using (SQLiteCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "UPDATE campaigns SET  campaignsDesc = @desc, campaignsImg = @img WHERE campaignsName = @name ";
+
+                        cmd.Parameters.AddWithValue("@name", listBox1.GetItemText(listBox1.Items[index]).ToString());
+                        cmd.Parameters.AddWithValue("@desc", textBox1.Text);
+
+                        Image image = pictureBox1.Image;
+                        if (image != null)
+                        {
+                            MemoryStream memoryStream = new MemoryStream();
+                            image.Save(memoryStream, ImageFormat.Png);
+                            byte[] imageBt = memoryStream.ToArray();
+                            cmd.Parameters.AddWithValue("@img", imageBt);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@img", null);
+                        }
+                 
+
+
+
+                        conn.Open();
+                        //cmd.ExecuteNonQuery();
+                        if (cmd.ExecuteNonQuery() == 1)
+                        {
+                            MessageBox.Show("Data Updated");
+                        }
+
+                        conn.Close();
+                    }
                 }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@img", null);
-                }
-
-
-
-
-                conn.Open();
-                 //cmd.ExecuteNonQuery();
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    MessageBox.Show("Data Updated");
-                }
-
-                conn.Close();
             }
         }
+        
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

@@ -13,8 +13,8 @@ namespace WindowsFormsApp1
 {
     public partial class Notes : Form
     {
-       string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
-       
+        string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+
         public void cNameLabelFill(Label cNameLabel)
         {
             cNoteNameLabel.Text = cNameLabel.Text;
@@ -22,10 +22,10 @@ namespace WindowsFormsApp1
         public Notes()
         {
             InitializeComponent();
-          
+
         }
-       
-      
+
+
 
         //exits form without saving notes
         private void cancelButton_Click(object sender, EventArgs e)
@@ -35,51 +35,63 @@ namespace WindowsFormsApp1
         //saves new notes to database
         private void saveButton_Click(object sender, EventArgs e)
         {
-            
-            SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-            SQLiteCommand cmd = conn.CreateCommand();
 
-            //open DB connection
-            conn.Open();
-            cmd.CommandText = "UPDATE campaigns SET  campaignNotes = @note  WHERE campaignsName = @name ";
-            cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
-            cmd.Parameters.AddWithValue("@note", noteBox.Text);
-            cmd.ExecuteNonQuery();
-            if (cmd.ExecuteNonQuery() == 1)
-            {
-                MessageBox.Show("Data Updated");
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
+            {  //open DB connection
+                conn.Open();
+                string stm = "UPDATE campaigns SET  campaignNotes = @note  WHERE campaignsName = @name ";
+                using (SQLiteCommand cmd = new SQLiteCommand(stm, conn))
+                {
+                  
+                   
+                    cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
+                    cmd.Parameters.AddWithValue("@note", noteBox.Text);
+                    cmd.ExecuteNonQuery();
+                    if (cmd.ExecuteNonQuery() == 1)
+                    {
+                        MessageBox.Show("Data Updated");
+                    }
+
+                    conn.Close();
+                }
             }
-
-            conn.Close();
         }
         //Load old notes method
         private void Notes_Load(object sender, EventArgs e)
         {
-           SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-           SQLiteCommand cmd = conn.CreateCommand();
-            SQLiteDataReader reader;
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
+            {//open DB connection
+                conn.Open();
+                string stm = "SELECT campaignNotes FROM campaigns WHERE campaignsName = @name";
+                using (SQLiteCommand cmd = new SQLiteCommand(stm,conn))
+                { //select notes
+                    cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        
+                       
+                        
+                        
 
-            //open DB connection
-            conn.Open();
-            //select notes
-            cmd.CommandText = "SELECT campaignNotes FROM campaigns WHERE campaignsName = @name";
-            cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
 
+                        //get the data and show it 
+                       
+                        if (reader.Read())
+                        {
+                            string stuff = reader["campaignNotes"].ToString();
 
-            //get the data and show it 
-            reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                string stuff = reader["campaignNotes"].ToString();
-                noteBox.Text = reader.GetString(reader.GetOrdinal("campaignNotes"));
-               
+                            noteBox.Text = reader.GetString(reader.GetOrdinal("campaignNotes"));
+
+                        }
+                        else
+                        {
+                            noteBox.Text = "";
+                        }
+                        conn.Close();
+
+                    }
+                }
             }
-            else
-            {
-                noteBox.Text = "";
-            }
-            conn.Close();
-
         }
     }
 }

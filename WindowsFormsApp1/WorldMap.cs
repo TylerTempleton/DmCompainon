@@ -21,11 +21,11 @@ namespace WindowsFormsApp1
         public WorldMap()
         {
             InitializeComponent();
-          
+
         }
         public void cNameLabelFill(Label cNameLabel)
         {
-           cWMNameLabel.Text  = cNameLabel.Text;
+            cWMNameLabel.Text = cNameLabel.Text;
         }
 
 
@@ -38,40 +38,45 @@ namespace WindowsFormsApp1
             {
                 worldMapBox.Image = Image.FromFile(camImage.FileName);
             }
-          
+
             {
-               SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-               SQLiteCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE campaigns SET campaignWorldMap = @img  WHERE campaignsName = @name";
-
-                cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
-                
-
-                Image image = worldMapBox.Image;
-                if (image != null)
+                using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
                 {
-                    MemoryStream memoryStream = new MemoryStream();
-                    image.Save(memoryStream, ImageFormat.Jpeg);
-                    byte[] imageBt = memoryStream.ToArray();
-                    cmd.Parameters.AddWithValue("@img", imageBt);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@img", null);
-                }
+                    conn.Open();
+                    string stm = "UPDATE campaigns SET campaignWorldMap = @img  WHERE campaignsName = @name";
+                    using (SQLiteCommand cmd = new SQLiteCommand(stm, conn))
+                    {
 
-                conn.Open();
-                // cmd.ExecuteNonQuery();
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    MessageBox.Show("Data Inserted");
-                }
 
-                conn.Close();
+                        cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
+
+
+                        Image image = worldMapBox.Image;
+                        if (image != null)
+                        {
+                            MemoryStream memoryStream = new MemoryStream();
+                            image.Save(memoryStream, ImageFormat.Jpeg);
+                            byte[] imageBt = memoryStream.ToArray();
+                            cmd.Parameters.AddWithValue("@img", imageBt);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@img", null);
+                        }
+
+
+                        // cmd.ExecuteNonQuery();
+                        if (cmd.ExecuteNonQuery() == 1)
+                        {
+                            MessageBox.Show("Data Inserted");
+                        }
+
+                        conn.Close();
+                    }
+                }
             }
         }
-        
-            
+
 
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -81,36 +86,39 @@ namespace WindowsFormsApp1
 
         private void WorldMap_Load(object sender, EventArgs e)
         {
-          SQLiteConnection conn = new SQLiteConnection(conn_string.ToString());
-           SQLiteCommand cmd = conn.CreateCommand();
-            SQLiteDataReader reader;
-            try
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
             {//open DB connection
                 conn.Open();
                 //select all campaigns
-                cmd.CommandText = "SELECT * FROM campaigns WHERE  campaignsName = @name";
-                cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
-
-                //get the data and show it 
-
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                { // reader filters the campaign names from the result
-
-                    Boolean logthing = reader.IsDBNull(3);
-                    Debug.WriteLine(logthing);
-                    if (!reader.IsDBNull(3))
+                string stm = "SELECT * FROM campaigns WHERE  campaignsName = @name";
+                
+                using (SQLiteCommand cmd = new SQLiteCommand(stm, conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        byte[] byteBLOBData = (byte[])reader["campaignWorldMap"];
-                        MemoryStream ms = new MemoryStream(byteBLOBData);
-                        worldMapBox.Image = Image.FromStream(ms);
-                    }
+                    
 
+
+                            //get the data and show it 
+
+                           
+                            while (reader.Read())
+                            { // reader filters the campaign names from the result
+
+                                Boolean logthing = reader.IsDBNull(3);
+                                Debug.WriteLine(logthing);
+                                if (!reader.IsDBNull(3))
+                                {
+                                    byte[] byteBLOBData = (byte[])reader["campaignWorldMap"];
+                                    MemoryStream ms = new MemoryStream(byteBLOBData);
+                                    worldMapBox.Image = Image.FromStream(ms);
+                                }
+
+                            }
+                       
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
     }
