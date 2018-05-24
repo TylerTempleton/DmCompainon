@@ -50,8 +50,9 @@ namespace WindowsFormsApp1
 
                         cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
 
-
+                        
                         Image image = worldMapBox.Image;
+                        
                         if (image != null)
                         {
                             MemoryStream memoryStream = new MemoryStream();
@@ -97,26 +98,26 @@ namespace WindowsFormsApp1
                     cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
                     using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                    
-
-
-                            //get the data and show it 
-
-                           
+                     //get the data and show it 
                             while (reader.Read())
                             { // reader filters the campaign names from the result
 
-                                Boolean logthing = reader.IsDBNull(3);
+                                Boolean logthing = reader.IsDBNull(4);
                                 Debug.WriteLine(logthing);
-                                if (!reader.IsDBNull(3))
-                                {
-                                    byte[] byteBLOBData = (byte[])reader["campaignWorldMap"];
-                                    MemoryStream ms = new MemoryStream(byteBLOBData);
-                                    worldMapBox.Image = Image.FromStream(ms);
-                                }
+
+                            if (!reader.IsDBNull(4))
+                            {
+                                byte[] byteBLOBData = (byte[])reader["campaignWorldMap"];
+                                MemoryStream ms = new MemoryStream(byteBLOBData);
+                                worldMapBox.Image = Image.FromStream(ms);
+                            }
+                            else {
+                                worldMapBox.Image = null;
+                            }
+                           
 
                             }
-                       
+                        conn.Close();
                     }
                 }
             }

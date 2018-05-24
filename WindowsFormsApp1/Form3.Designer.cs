@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.mainlabel = new System.Windows.Forms.Label();
             this.wmButton = new System.Windows.Forms.Button();
             this.notesButton = new System.Windows.Forms.Button();
@@ -46,10 +47,10 @@
             // mainlabel
             // 
             this.mainlabel.AutoSize = true;
-            this.mainlabel.Font = new System.Drawing.Font("MS Reference Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainlabel.Location = new System.Drawing.Point(317, 9);
             this.mainlabel.Name = "mainlabel";
-            this.mainlabel.Size = new System.Drawing.Size(189, 40);
+            this.mainlabel.Size = new System.Drawing.Size(174, 37);
             this.mainlabel.TabIndex = 0;
             this.mainlabel.Text = "Main Menu";
             // 
@@ -177,6 +178,7 @@
             this.Controls.Add(this.notesButton);
             this.Controls.Add(this.wmButton);
             this.Controls.Add(this.mainlabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainMenu";
             this.Text = "Main Menu";
             ((System.ComponentModel.ISupportInitialize)(this.campaignImg)).EndInit();

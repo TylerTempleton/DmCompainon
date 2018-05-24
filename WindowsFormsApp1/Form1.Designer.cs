@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(loginForm));
             this.startButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -68,10 +69,10 @@
             // welcomeLabel
             // 
             this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Font = new System.Drawing.Font("Monotype Corsiva", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcomeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.welcomeLabel.Location = new System.Drawing.Point(27, 106);
             this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(233, 72);
+            this.welcomeLabel.Size = new System.Drawing.Size(291, 66);
             this.welcomeLabel.TabIndex = 7;
             this.welcomeLabel.Text = "Welcome to Tyler\'s \r\nDM Compainion!";
             // 
@@ -84,6 +85,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.startButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "loginForm";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.loginForm_Load);

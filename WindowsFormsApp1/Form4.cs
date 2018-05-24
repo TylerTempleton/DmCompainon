@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1
 {
@@ -68,24 +69,29 @@ namespace WindowsFormsApp1
                     cmd.Parameters.AddWithValue("@name", cNoteNameLabel.Text);
                     using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        
-                       
-                        
-                        
 
 
-                        //get the data and show it 
-                       
-                        if (reader.Read())
+
+
+
+                        while (reader.Read())
                         {
-                            string stuff = reader["campaignNotes"].ToString();
+                            //get the data and show it 
+                            // boolean to see if notes are null
+                            Boolean logthing = reader.IsDBNull(5);
+                            Debug.WriteLine(logthing);
 
-                            noteBox.Text = reader.GetString(reader.GetOrdinal("campaignNotes"));
+                            if (!reader.IsDBNull(5))
+                            {
+                                string stuff = reader["campaignNotes"].ToString();
 
-                        }
-                        else
-                        {
-                            noteBox.Text = "";
+                                noteBox.Text = reader.GetString(reader.GetOrdinal("campaignNotes"));
+
+                            }
+                            else
+                            {
+                                noteBox.Text = "";
+                            }
                         }
                         conn.Close();
 
