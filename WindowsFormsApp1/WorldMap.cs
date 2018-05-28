@@ -26,11 +26,11 @@ namespace WindowsFormsApp1
         public WorldMap()
         {
             InitializeComponent();
-          
+
         }
         public void cNameLabelFill(Label cNameLabel)
         {
-           cWMNameLabel.Text  = cNameLabel.Text;
+            cWMNameLabel.Text = cNameLabel.Text;
         }
 
 
@@ -43,14 +43,14 @@ namespace WindowsFormsApp1
             {
                 worldMapBox.Image = Image.FromFile(camImage.FileName);
             }
-          
+
             {
                 MySqlConnection conn = new MySqlConnection(conn_string.ToString());
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE dnd.campaigns SET campaignWorldMap = @img  WHERE campaignsName = @name";
 
                 cmd.Parameters.AddWithValue("@name", cWMNameLabel.Text);
-                
+
 
                 Image image = worldMapBox.Image;
                 if (image != null)
@@ -75,8 +75,8 @@ namespace WindowsFormsApp1
                 conn.Close();
             }
         }
-        
-            
+
+
 
 
         private void closeButton_Click(object sender, EventArgs e)

@@ -114,7 +114,7 @@
             // textBox1
             // 
             this.textBox1.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.textBox1.Location = new System.Drawing.Point(162, 244);
+            this.textBox1.Location = new System.Drawing.Point(162, 245);
             this.textBox1.MaxLength = 200;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -161,7 +161,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "CamSelect";
             this.Text = "CampaignSelect";
-            this.Load += new System.EventHandler(this.CamSelect_Load);
+            
             ((System.ComponentModel.ISupportInitialize)(this.dndDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.campaignsBindingSource)).EndInit();

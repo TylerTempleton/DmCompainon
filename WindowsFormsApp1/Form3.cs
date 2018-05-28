@@ -29,7 +29,7 @@ namespace WindowsFormsApp1
         {
             cNameLabel.Text = listBox1.SelectedItem.ToString();
         }
-      
+
         private void notesButton_Click(object sender, EventArgs e)
         {
 
@@ -40,8 +40,8 @@ namespace WindowsFormsApp1
                 f4.Show();
             }
 
-            
-            
+
+
         }
 
         private void npcButton_Click(object sender, EventArgs e)
@@ -56,7 +56,7 @@ namespace WindowsFormsApp1
 
         private void wmButton_Click(object sender, EventArgs e)
         {
-           WorldMap f5 = new WorldMap();
+            WorldMap f5 = new WorldMap();
             cNamePass cname = new cNamePass(f5.cNameLabelFill);
             cname(this.cNameLabel);
             f5.Show();
@@ -74,7 +74,10 @@ namespace WindowsFormsApp1
 
         private void dunButton_Click(object sender, EventArgs e)
         {
-
+            Dungeons f6 = new Dungeons();
+            cNamePass cname = new cNamePass(f6.cNameLabelFill);
+            cname(this.cNameLabel);
+            f6.Show();
         }
 
         private void lootButton_Click(object sender, EventArgs e)
@@ -82,6 +85,6 @@ namespace WindowsFormsApp1
 
         }
 
-       
+
     }
 }

@@ -39,7 +39,7 @@ namespace WindowsFormsApp1
         {
             if (listBox1.SelectedIndex == -1)
             {
-                MessageBox.Show("Please Select A Campaign To Continue");
+                MessageBox.Show("Please Select A Dungeon To Continue");
                
             }
             else {
@@ -77,7 +77,7 @@ namespace WindowsFormsApp1
             //open DB connection
                 conn.Open();
             //MySQL statment to delete based on campaign name that is paramiterized to prevent sql injection
-                cmd.CommandText =( "DELETE FROM dnd.campaigns where campaignsName = @name");
+                cmd.CommandText =( "DELETE FROM dnd.dungeons where dungeonsName = @name");
             cmd.Parameters.AddWithValue("@name", i);
             // execute command
             cmd.ExecuteNonQuery();
@@ -90,11 +90,7 @@ namespace WindowsFormsApp1
 
         }
 
-        void CamSelect_Load(object sender, EventArgs e)
-        {
-
-
-        }
+       
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

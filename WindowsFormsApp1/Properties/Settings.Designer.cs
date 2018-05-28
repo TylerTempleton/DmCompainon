@@ -32,5 +32,16 @@ namespace WindowsFormsApp1.Properties {
                 return ((string)(this["dndConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;user id=root;password=tnttnt;persistsecurityinfo=True;database=d" +
+            "nd")]
+        public string dndConnectionString1 {
+            get {
+                return ((string)(this["dndConnectionString1"]));
+            }
+        }
     }
 }
