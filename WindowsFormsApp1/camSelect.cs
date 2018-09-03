@@ -61,11 +61,12 @@ namespace WindowsFormsApp1
 
         private void delButton_Click(object sender, EventArgs e)
         {// store name of list item selected
-            if (listBox1.SelectedItem == null)
+            if (listBox1.SelectedIndex == -1)
             {
+                MessageBox.Show("Please Select A Campaign To Continue");
 
-                return;
             }
+           
             else
             {
                 string i = listBox1.SelectedItem.ToString();
@@ -204,6 +205,12 @@ namespace WindowsFormsApp1
 
         private void updateButton_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please Select A Campaign To Continue");
+
+            }
+            else
             {
                 int index;
                 // Get the index of the selected item

@@ -39,6 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(448, 24);
             this.label1.Name = "label1";
@@ -78,11 +79,13 @@
             // cNoteNameLabel
             // 
             this.cNoteNameLabel.AutoSize = true;
+            this.cNoteNameLabel.BackColor = System.Drawing.Color.Transparent;
             this.cNoteNameLabel.Location = new System.Drawing.Point(332, 11);
             this.cNoteNameLabel.Name = "cNoteNameLabel";
             this.cNoteNameLabel.Size = new System.Drawing.Size(341, 13);
             this.cNoteNameLabel.TabIndex = 5;
             this.cNoteNameLabel.Text = "Placeholder(user should not see this text but rather the campign name )";
+            this.cNoteNameLabel.Visible = false;
             // 
             // Notes
             // 
@@ -90,6 +93,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(982, 561);
             this.Controls.Add(this.cNoteNameLabel);
             this.Controls.Add(this.noteBox);

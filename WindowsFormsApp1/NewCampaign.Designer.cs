@@ -33,7 +33,6 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.descBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.uploadButton = new System.Windows.Forms.Button();
             this.submitButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
@@ -44,50 +43,45 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 29);
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(4, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 26);
+            this.label1.Size = new System.Drawing.Size(113, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name of Campaign\r\n(45 characters)\r\n";
             // 
             // nameBox
             // 
-            this.nameBox.Location = new System.Drawing.Point(116, 26);
+            this.nameBox.Location = new System.Drawing.Point(116, 52);
             this.nameBox.MaxLength = 45;
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(149, 20);
+            this.nameBox.Size = new System.Drawing.Size(176, 20);
             this.nameBox.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 72);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(4, 120);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 26);
+            this.label2.Size = new System.Drawing.Size(105, 26);
             this.label2.TabIndex = 2;
             this.label2.Text = "Short Description\r\n(200 characters)\r\n";
             // 
             // descBox
             // 
-            this.descBox.Location = new System.Drawing.Point(116, 72);
+            this.descBox.Location = new System.Drawing.Point(116, 117);
             this.descBox.MaxLength = 200;
             this.descBox.Multiline = true;
             this.descBox.Name = "descBox";
-            this.descBox.Size = new System.Drawing.Size(149, 74);
+            this.descBox.Size = new System.Drawing.Size(176, 223);
             this.descBox.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 169);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Upload Image";
             // 
             // uploadButton
             // 
-            this.uploadButton.Location = new System.Drawing.Point(299, 169);
+            this.uploadButton.Location = new System.Drawing.Point(475, 346);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(149, 23);
             this.uploadButton.TabIndex = 5;
@@ -97,7 +91,7 @@
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(54, 427);
+            this.submitButton.Location = new System.Drawing.Point(116, 427);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(75, 23);
             this.submitButton.TabIndex = 6;
@@ -107,7 +101,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(373, 427);
+            this.backButton.Location = new System.Drawing.Point(217, 427);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(75, 23);
             this.backButton.TabIndex = 7;
@@ -117,9 +111,9 @@
             // 
             // previewPicture
             // 
-            this.previewPicture.Location = new System.Drawing.Point(19, 199);
+            this.previewPicture.Location = new System.Drawing.Point(353, 52);
             this.previewPicture.Name = "previewPicture";
-            this.previewPicture.Size = new System.Drawing.Size(429, 212);
+            this.previewPicture.Size = new System.Drawing.Size(429, 288);
             this.previewPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.previewPicture.TabIndex = 8;
             this.previewPicture.TabStop = false;
@@ -130,12 +124,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(502, 462);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.previewPicture);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.uploadButton);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.descBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nameBox);
@@ -157,7 +151,6 @@
         private System.Windows.Forms.TextBox nameBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox descBox;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button uploadButton;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Button backButton;

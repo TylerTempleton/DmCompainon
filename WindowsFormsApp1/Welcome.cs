@@ -19,19 +19,15 @@ namespace WindowsFormsApp1
             CamSelect f2 = new CamSelect();
             Hide();
             f2.Show();
-            
-
-
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
         {//closes application
             System.Windows.Forms.Application.Exit();
-                }
+        }
 
         private void loginForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

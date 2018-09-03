@@ -56,11 +56,12 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // campaignImgBox
+            // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::WindowsFormsApp1.Properties.Resources.D_D_Transparent;
             this.pictureBox1.Location = new System.Drawing.Point(82, 21);
-            this.pictureBox1.Name = "campaignImgBox";
+            this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(704, 215);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
@@ -69,6 +70,7 @@
             // welcomeLabel
             // 
             this.welcomeLabel.AutoSize = true;
+            this.welcomeLabel.BackColor = System.Drawing.Color.Transparent;
             this.welcomeLabel.Font = new System.Drawing.Font("Gabriola", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.welcomeLabel.Location = new System.Drawing.Point(316, 249);
             this.welcomeLabel.Name = "welcomeLabel";
@@ -83,6 +85,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.welcomeLabel);
             this.Controls.Add(this.pictureBox1);

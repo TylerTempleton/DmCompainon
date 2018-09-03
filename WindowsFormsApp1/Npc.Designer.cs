@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Npc));
             this.cWMNameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.cWMNameLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Npc";
             this.Text = "Npc";
             this.ResumeLayout(false);
