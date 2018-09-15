@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class Town : Form
     {

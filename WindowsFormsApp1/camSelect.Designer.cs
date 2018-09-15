@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DMCompainion
 {
     partial class CamSelect
     {
@@ -152,7 +152,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.paper_background;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.updateButton);

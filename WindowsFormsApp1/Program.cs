@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     internal static class Program
     {
@@ -13,7 +13,17 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new loginForm());
+            var main = new CamSelect();
+            main.FormClosed += new FormClosedEventHandler(FormClosed);
+            main.Show();
+            Application.Run();
+        }
+
+        static void FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((Form)sender).FormClosed -= FormClosed;
+            if (Application.OpenForms.Count == 0) Application.ExitThread();
+            else Application.OpenForms[0].FormClosed += FormClosed;
         }
     }
 }

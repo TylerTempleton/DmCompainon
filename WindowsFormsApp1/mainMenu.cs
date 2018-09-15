@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class MainMenu : Form
     {
@@ -11,6 +11,8 @@ namespace WindowsFormsApp1
         }
 
         public delegate void cNamePass(Label label);
+
+       
 
         private void backButton_Click(object sender, EventArgs e)
         {

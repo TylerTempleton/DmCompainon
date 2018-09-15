@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class WorldMap : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DMCompainion
 {
     partial class Loot
     {
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.paper_background;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.label2);

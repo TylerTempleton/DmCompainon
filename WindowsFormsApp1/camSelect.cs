@@ -1,60 +1,56 @@
-﻿using System.Data.SQLite;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class CamSelect : Form
     {// connection string to MySql database
-        string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+        private string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+
         public CamSelect()
         {//start up form
             InitializeComponent();
             //populate listbox
             GetList();
-
-
-
         }
+
         public delegate void cNamePass(ListBox listbox);
-       
 
         private void selectButton_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1)
             {
                 MessageBox.Show("Please Select A Campaign To Continue");
-               
             }
-            else {
+            else
+            {
                 // instance of Main Menu form window
                 MainMenu f3 = new MainMenu();
-                // hide old form
-                Hide();
+                
+                
+               
+                
                 //pass campaign data
                 cNamePass cname = new cNamePass(f3.cNameLabelFill);
                 cname(this.listBox1);
-               
+
                 // show new form
                 f3.Show();
+                this.Close();
             }
+           
         }
-
+       
         private void newButton_Click(object sender, EventArgs e)
         { // instance of new campaign form window
             NewCampaign f2 = new NewCampaign();
             // hide old form
-            Hide();
+            this.Close();
             // show new form
             f2.Show();
         }
@@ -64,9 +60,7 @@ namespace WindowsFormsApp1
             if (listBox1.SelectedIndex == -1)
             {
                 MessageBox.Show("Please Select A Campaign To Continue");
-
             }
-           
             else
             {
                 string i = listBox1.SelectedItem.ToString();
@@ -77,9 +71,6 @@ namespace WindowsFormsApp1
                     conn.Open();
                     using (SQLiteCommand cmd = new SQLiteCommand("DELETE FROM campaigns where campaignsName = @name", conn))
                     {
-
-
-
                         //MySQL statment to delete based on campaign name that is paramiterized to prevent sql injection
 
                         cmd.Parameters.AddWithValue("@name", i);
@@ -91,18 +82,13 @@ namespace WindowsFormsApp1
                         // close connection
                         conn.Close();
                         GetList();
-
                     }
                 }
             }
         }
-            
-        
 
-        void CamSelect_Load(object sender, EventArgs e)
+        private void CamSelect_Load(object sender, EventArgs e)
         {
-
-
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,25 +104,17 @@ namespace WindowsFormsApp1
             {
                 selectedText = listBox1.GetItemText(listBox1.Items[index]).ToString();
 
-
                 //write your sql and pass the text as one parameter
                 using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
                 {//open DB connection
                     conn.Open();
                     string stm = "SELECT * FROM campaigns where campaignsName = @name";
-                    using (SQLiteCommand cmd = new SQLiteCommand(stm,conn))
+                    using (SQLiteCommand cmd = new SQLiteCommand(stm, conn))
                     {
                         cmd.Parameters.AddWithValue("@name", selectedText);
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {
-                            
-                            
-                            
-                          
-                           
-
                             //get the data and show it in any controls like gridview or whatever you want to do with data
-
 
                             while (reader.Read())
                             { // reader filters the campaign names from the result
@@ -151,18 +129,12 @@ namespace WindowsFormsApp1
                                 }
                                 else
                                 {
-
-
-
                                     campaignImgBox.Image = null;
                                 }
-
 
                                 // add the names to the description textbox
                                 textBox1.Clear();
                                 textBox1.Text = descStuff;
-
-
                             }
                             conn.Close();
                         }
@@ -170,7 +142,8 @@ namespace WindowsFormsApp1
                 }
             }
         }
-        void GetList()
+
+        private void GetList()
         {// clear listbox for reloading the list
             listBox1.Items.Clear();
             //connect to database and initilize reader
@@ -183,21 +156,15 @@ namespace WindowsFormsApp1
                     cmd.CommandText = "SELECT * FROM campaigns";
                     using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        
-                          
-                            
-                            //reader loads in results
+                        //reader loads in results
 
-                            while (reader.Read())
-                            { // reader filters the campaign names from the result
-                                string sName = reader.GetString(reader.GetOrdinal("campaignsName"));
-                                // add the names to the listbox
-                                listBox1.Items.Add(sName);
-
-                            }
-                            conn.Close();
-                    
-                       
+                        while (reader.Read())
+                        { // reader filters the campaign names from the result
+                            string sName = reader.GetString(reader.GetOrdinal("campaignsName"));
+                            // add the names to the listbox
+                            listBox1.Items.Add(sName);
+                        }
+                        conn.Close();
                     }
                 }
             }
@@ -208,7 +175,6 @@ namespace WindowsFormsApp1
             if (listBox1.SelectedIndex == -1)
             {
                 MessageBox.Show("Please Select A Campaign To Continue");
-
             }
             else
             {
@@ -239,9 +205,6 @@ namespace WindowsFormsApp1
                         {
                             cmd.Parameters.AddWithValue("@img", null);
                         }
-                 
-
-
 
                         conn.Open();
                         //cmd.ExecuteNonQuery();
@@ -255,7 +218,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-        
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -263,10 +225,8 @@ namespace WindowsFormsApp1
             camImage.Filter = "Choose Image(*.jpg); *.png; *.gif)|*.jpg;*.png; *.gif";
             if (camImage.ShowDialog() == DialogResult.OK)
             {
-               campaignImgBox.Image = Image.FromFile(camImage.FileName);
+                campaignImgBox.Image = Image.FromFile(camImage.FileName);
             }
         }
     }
 }
-    
-

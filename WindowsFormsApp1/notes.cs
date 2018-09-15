@@ -3,7 +3,7 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class Notes : Form
     {

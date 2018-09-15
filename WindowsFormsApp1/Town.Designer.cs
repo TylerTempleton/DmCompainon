@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DMCompainion
 {
     partial class Town
     {

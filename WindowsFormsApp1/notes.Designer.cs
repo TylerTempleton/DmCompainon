@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace DMCompainion
 {
     partial class Notes
     {
@@ -93,7 +93,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.paper_background;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(982, 561);
             this.Controls.Add(this.cNoteNameLabel);
             this.Controls.Add(this.noteBox);

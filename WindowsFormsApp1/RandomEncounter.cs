@@ -1,13 +1,20 @@
 ﻿using System;
-using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace DMCompainion
 {
     public partial class RandomEncounter : Form
     {// connection string to MySql database
         private string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+        private string monName, monSize, hitpoints, armorClass, speed, alignment, type, subtype, strength, dexterity, constitution, intelligence, wisdom, charisma, conSave,intSave,wisSave;
+
+        
+
+        private int partylvl, partysize, playersizeMulti, numMonsters, challenge_rateing;
+        private double exp, perMonsterExp, baseExp, partySizeMulti, monsterMulti;
+
+        
 
         public RandomEncounter()
         {
@@ -22,543 +29,24 @@ namespace WindowsFormsApp1
         // encounter generation button
         private void encounterButton_Click(object sender, EventArgs e)
         {// intilize exp, partysize and party level
-            double exp = 0;
+            exp = 0;
             //Convert party size/lvl from NumUpDown Boxes
-            int partylvl = Convert.ToInt32(partyLevel.Value);
-            int partysize = Convert.ToInt32(numberOfPlayers.Value);
-            int playersizeMulti = Convert.ToInt32(numberOfPlayers.Value);
-            int numMonsters = Convert.ToInt32(numOfMons.Value);
-            double perMonsterExp = 0;
-            double baseExp = 0;
-            double partySizeMulti = 0;
-            double monsterMulti = 0;
-            int challenge_rateing = 0;
+            partylvl = Convert.ToInt32(partyLevel.Value);
+            partysize = Convert.ToInt32(numberOfPlayers.Value);
+            playersizeMulti = Convert.ToInt32(numberOfPlayers.Value);
+            numMonsters = Convert.ToInt32(numOfMons.Value);
+            perMonsterExp = 0;
+            baseExp = 0;
+            partySizeMulti = 0;
+            monsterMulti = 0;
+            challenge_rateing = 0;
             // get difficulty from box
             string difficulty = difficultyBox.Visible.ToString();
 
             // calculate XP by level
 
-            if (partylvl == 1)
-            {
-                //difficulty exp
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 25;
-                        break;
-
-                    case "Medium":
-                        exp = 50;
-                        break;
-
-                    case "Hard":
-                        exp = 75;
-                        break;
-
-                    case "Deadly":
-                        exp = 100;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 2)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 50;
-                        break;
-
-                    case "Medium":
-                        exp = 100;
-                        break;
-
-                    case "Hard":
-                        exp = 150;
-                        break;
-
-                    case "Deadly":
-                        exp = 200;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 3)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 75;
-                        break;
-
-                    case "Medium":
-                        exp = 150;
-                        break;
-
-                    case "Hard":
-                        exp = 225;
-                        break;
-
-                    case "Deadly":
-                        exp = 400;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 4)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 125;
-                        break;
-
-                    case "Medium":
-                        exp = 250;
-                        break;
-
-                    case "Hard":
-                        exp = 375;
-                        break;
-
-                    case "Deadly":
-                        exp = 500;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 5)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 250;
-                        break;
-
-                    case "Medium":
-                        exp = 500;
-                        break;
-
-                    case "Hard":
-                        exp = 750;
-                        break;
-
-                    case "Deadly":
-                        exp = 1100;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 6)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 300;
-                        break;
-
-                    case "Medium":
-                        exp = 600;
-                        break;
-
-                    case "Hard":
-                        exp = 900;
-                        break;
-
-                    case "Deadly":
-                        exp = 1400;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 7)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 350;
-                        break;
-
-                    case "Medium":
-                        exp = 750;
-                        break;
-
-                    case "Hard":
-                        exp = 1100;
-                        break;
-
-                    case "Deadly":
-                        exp = 1700;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 8)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 450;
-                        break;
-
-                    case "Medium":
-                        exp = 900;
-                        break;
-
-                    case "Hard":
-                        exp = 1400;
-                        break;
-
-                    case "Deadly":
-                        exp = 2100;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 9)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 600;
-                        break;
-
-                    case "Medium":
-                        exp = 1200;
-                        break;
-
-                    case "Hard":
-                        exp = 1600;
-                        break;
-
-                    case "Deadly":
-                        exp = 2400;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 10)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 600;
-                        break;
-
-                    case "Medium":
-                        exp = 1200;
-                        break;
-
-                    case "Hard":
-                        exp = 1900;
-                        break;
-
-                    case "Deadly":
-                        exp = 2800;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 11)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 800;
-                        break;
-
-                    case "Medium":
-                        exp = 1600;
-                        break;
-
-                    case "Hard":
-                        exp = 2400;
-                        break;
-
-                    case "Deadly":
-                        exp = 3600;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 12)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 1000;
-                        break;
-
-                    case "Medium":
-                        exp = 2000;
-                        break;
-
-                    case "Hard":
-                        exp = 3000;
-                        break;
-
-                    case "Deadly":
-                        exp = 4500;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 13)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 1100;
-                        break;
-
-                    case "Medium":
-                        exp = 2200;
-                        break;
-
-                    case "Hard":
-                        exp = 3400;
-                        break;
-
-                    case "Deadly":
-                        exp = 5100;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 14)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 1250;
-                        break;
-
-                    case "Medium":
-                        exp = 2500;
-                        break;
-
-                    case "Hard":
-                        exp = 3800;
-                        break;
-
-                    case "Deadly":
-                        exp = 5700;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 15)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 1400;
-                        break;
-
-                    case "Medium":
-                        exp = 2800;
-                        break;
-
-                    case "Hard":
-                        exp = 4300;
-                        break;
-
-                    case "Deadly":
-                        exp = 6400;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 16)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 1600;
-                        break;
-
-                    case "Medium":
-                        exp = 3200;
-                        break;
-
-                    case "Hard":
-                        exp = 4800;
-                        break;
-
-                    case "Deadly":
-                        exp = 7200;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 17)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 2000;
-                        break;
-
-                    case "Medium":
-                        exp = 3900;
-                        break;
-
-                    case "Hard":
-                        exp = 5900;
-                        break;
-
-                    case "Deadly":
-                        exp = 8800;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 18)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 2100;
-                        break;
-
-                    case "Medium":
-                        exp = 4200;
-                        break;
-
-                    case "Hard":
-                        exp = 6300;
-                        break;
-
-                    case "Deadly":
-                        exp = 9500;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else if (partylvl == 19)
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 2400;
-                        break;
-
-                    case "Medium":
-                        exp = 4900;
-                        break;
-
-                    case "Hard":
-                        exp = 7300;
-                        break;
-
-                    case "Deadly":
-                        exp = 10900;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
-            else
-            {
-                switch (difficultyBox.Text)
-
-                {
-                    case "Easy":
-                        exp = 2800;
-                        break;
-
-                    case "Medium":
-                        exp = 5700;
-                        break;
-
-                    case "Hard":
-                        exp = 8500;
-                        break;
-
-                    case "Deadly":
-                        exp = 12700;
-                        break;
-
-                    default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
-                        break;
-                }
-            }
+            ExpCalc(partylvl);
+            
             //assign base exp to exp before multipliers
             baseExp = exp;
             //Encounter Multipliers
@@ -614,32 +102,16 @@ namespace WindowsFormsApp1
             partyMultiValue.Text = partySizeMulti.ToString();
             playerMultiValue.Text = playersizeMulti.ToString();
             perMonsterExp = exp / numMonsters;
-            if (perMonsterExp >= 10 ) {
-                challenge_rateing = 0;
-            }
-            if (perMonsterExp >= 25) {
-                challenge_rateing = 1/8;
-            }
-            if (perMonsterExp >=50)
-            {
-                challenge_rateing =1/4 ;
-            }
-            if (perMonsterExp >= 100)
-            {
-                challenge_rateing = 1/2;
-            }
-            if (perMonsterExp >=200)
-            {
-                challenge_rateing = 1;
-            }
+            ChallegeRatingFinder(perMonsterExp);
+
             //console check values
-            Console.WriteLine("base exp " + baseExp.ToString());
-            Console.WriteLine("monster multi " + monsterMulti.ToString());
-            Console.WriteLine("playersize multi " + playersizeMulti.ToString());
-            Console.WriteLine("partysize multi " + partySizeMulti.ToString());
-            Console.WriteLine("exp Value " + exp.ToString());
-            Console.WriteLine("permonster Value " + perMonsterExp.ToString());
-            Console.WriteLine("Challenge rating " + challenge_rateing.ToString());
+            //Console.WriteLine("base exp " + baseExp.ToString());
+            //Console.WriteLine("monster multi " + monsterMulti.ToString());
+            //Console.WriteLine("playersize multi " + playersizeMulti.ToString());
+            //Console.WriteLine("partysize multi " + partySizeMulti.ToString());
+            //Console.WriteLine("exp Value " + exp.ToString());
+            //Console.WriteLine("permonster Value " + perMonsterExp.ToString());
+            //Console.WriteLine("Challenge rating " + challenge_rateing.ToString());
 
             bexpLabel.Visible = true;
             besxpValue.Visible = true;
@@ -659,17 +131,764 @@ namespace WindowsFormsApp1
                 using (SQLiteCommand cmd = conn.CreateCommand())
                 {
                     //select all monsters, find monsters closest by challenge rating and randomly select one
-                    cmd.CommandText = "SELECT name, challenge_rating, hit_points, armor_class   FROM monsters   ORDER BY ABS(@challengeRateing - challenge_rating), RANDOM() LIMIT 1 ";
-
+                    //cmd.CommandText = 'SELECT name, size, hit_points, armor_class, speed, alignment, type, subtype, strength, dexterity, constitution, intelligence, wisdom, charisma, constitution_save, intelligence_save, wisdom_save, damage_vulnerabilities, damage_resistances, damage_immunities, "special_abilities/0/name", "special_abilities/0/desc", "special_abilities/0/attack_bonus","special_abilities/1/name", "special_abilities/1/desc", "special_abilities/1/attack_bonus", senses, languages, "actions/0/name", "actions/0/desc","actions/0/attack_bonus","actions/1/name", "actions/1/desc","actions/1/attack_bonus","actions/2/name", "actions/2/desc","actions/2/attack_bonus", "actions/3/name", "actions/3/desc","actions/3/attack_bonus","actions/4/name", "actions/4/desc","actions/4/attack_bonus" FROM monsters   ORDER BY ABS(@challengeRateing - challenge_rating), RANDOM() LIMIT 1 ';
+                    cmd.CommandText = "SELECT * FROM monsters ORDER BY ABS(@challengeRateing - challenge_rating), RANDOM() LIMIT 1";
                     cmd.Parameters.AddWithValue("@challengeRateing", challenge_rateing.ToString());
-                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-                        dataGridView1.DataSource = new BindingSource(table,null);
-                        conn.Close();
+                        //Check the reader has data:
+                        if (reader.Read())
+                        {
+                            monName = reader.GetString(reader.GetOrdinal("name"));
+                            hitpoints = reader.GetString(reader.GetOrdinal("hit_points"));
+                            armorClass = reader.GetString(reader.GetOrdinal("armor_class"));
+                            speed = reader.GetString(reader.GetOrdinal("speed"));
+                            alignment = reader.GetString(reader.GetOrdinal("alignment"));
+                            monSize = reader.GetString(reader.GetOrdinal("size"));
+                            type = reader.GetString(reader.GetOrdinal("type"));
+
+                            subtype = SafeGetString(reader, reader.GetOrdinal("subtype"));
+                            
+                            strength = reader.GetString(reader.GetOrdinal("strength"));
+                            dexterity = reader.GetString(reader.GetOrdinal("dexterity"));
+                            constitution = reader.GetString(reader.GetOrdinal("constitution"));
+                            intelligence = reader.GetString(reader.GetOrdinal("intelligence"));
+                            wisdom = reader.GetString(reader.GetOrdinal("wisdom"));
+                            charisma = reader.GetString(reader.GetOrdinal("charisma"));
+                            conSave = "CON Save: " + SafeGetString(reader, reader.GetOrdinal("constitution_save"));
+                            intSave = "INT Save: " + SafeGetString(reader, reader.GetOrdinal("intelligence_save"));
+                            wisSave = "WIS Save: " + SafeGetString(reader, reader.GetOrdinal("wisdom_save"));
+                            savesLabel.Text = conSave + " , " +intSave + " , " + wisSave  ;
+                            dmgVulLabel.Text = "Damage Vulnerabilities: " + SafeGetString(reader, reader.GetOrdinal("damage_vulnerabilities")).ToString();
+                            dmgresLabel.Text = "Damage Resistances: " + SafeGetString(reader, reader.GetOrdinal("damage_resistence")).ToString();
+                            dmgImuLabel.Text = "Damage Immunities " + SafeGetString(reader, reader.GetOrdinal("damage_immunities")).ToString();
+                            conditionLabel.Text = "Condition Immunities " + SafeGetString(reader, reader.GetOrdinal("condition_immunities")).ToString();
+                            sensesLabel.Text = "Senses: " + SafeGetString(reader, reader.GetOrdinal("senses")).ToString();
+                            langLabel.Text = "Languages:  " + SafeGetString(reader, reader.GetOrdinal("languages")).ToString();
+                            specialLabel1.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/0/name")).ToString() +": " +SafeGetString(reader, reader.GetOrdinal("special_abilities/0/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/0/attack_bonus")).ToString(); 
+                            specialLabel2.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/attack_bonus")).ToString();
+                            specialLabel3.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/attack_bonus")).ToString();
+
+                            actionLabel1.Text = SafeGetString(reader, reader.GetOrdinal("actions/0/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/0/desc")).ToString() ;
+                            actionLabel2.Text = SafeGetString(reader, reader.GetOrdinal("actions/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/1/desc")).ToString() ;
+                            actionLabel3.Text = SafeGetString(reader, reader.GetOrdinal("actions/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/2/desc")).ToString() ;
+                            actionLabel4.Text = SafeGetString(reader, reader.GetOrdinal("actions/3/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/3/desc")).ToString() ;
+                            actionLabel5.Text = SafeGetString(reader, reader.GetOrdinal("actions/4/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/4/desc")).ToString() ;
+                            //call safegetstring if columnn can be null
+                            //string  = reader.GetString(reader.GetOrdinal(""));
+                            crLabel.Text = "CR: " + challenge_rateing.ToString() ;
+                            monsterNameLabel.Text = monName.ToString();
+                            sizeLabel.Text = monSize.ToString();
+                            typeLabel.Text = type.ToString();
+                            subtypeLabel.Text = subtype.ToString();
+                            alignmentLabel.Text = alignment.ToString();
+
+                            hpValueLabel.Text = hitpoints.ToString();
+                            acValueLabel.Text = armorClass.ToString();
+                            speedValueLabel.Text = speed.ToString();
+
+                            strValueLabel.Text = strength.ToString();
+                            dexValueLabel.Text = dexterity.ToString();
+                            conValueLabel.Text = constitution.ToString();
+                            intValueLabel.Text = intelligence.ToString();
+                            wisValueLabel.Text = wisdom.ToString();
+                            chaValueLabel.Text = charisma.ToString();
+
+                            // .Text = monName.ToString();
+                        }
                     }
+
+                    //using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(cmd))
+                    //{
+                    //    DataTable table = new DataTable();
+                    //    adapter.Fill(table);
+                    //    dataGridView1.DataSource = new BindingSource(table, null);
+                    //    conn.Close();
+                    //}
                 }
+            }
+        }
+
+        private double ExpCalc(int partyLevel)
+        {
+            if (partylvl == 1)
+            {
+                //difficulty exp
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 25;
+                        break;
+
+                    case "Medium":
+                        return exp = 50;
+                        break;
+
+                    case "Hard":
+                        return exp = 75;
+                        break;
+
+                    case "Deadly":
+                        return exp = 100;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 2)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 50;
+                        break;
+
+                    case "Medium":
+                        return exp = 100;
+                        break;
+
+                    case "Hard":
+                        return exp = 150;
+                        break;
+
+                    case "Deadly":
+                        return exp = 200;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 3)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 75;
+                        break;
+
+                    case "Medium":
+                        return exp = 150;
+                        break;
+
+                    case "Hard":
+                        return exp = 225;
+                        break;
+
+                    case "Deadly":
+                        return exp = 400;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 4)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 125;
+                        break;
+
+                    case "Medium":
+                        return exp = 250;
+                        break;
+
+                    case "Hard":
+                        return exp = 375;
+                        break;
+
+                    case "Deadly":
+                        return exp = 500;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 5)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 250;
+                        break;
+
+                    case "Medium":
+                        return exp = 500;
+                        break;
+
+                    case "Hard":
+                        return exp = 750;
+                        break;
+
+                    case "Deadly":
+                        return exp = 1100;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 6)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 300;
+                        break;
+
+                    case "Medium":
+                        return exp = 600;
+                        break;
+
+                    case "Hard":
+                        return exp = 900;
+                        break;
+
+                    case "Deadly":
+                        return exp = 1400;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 7)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 350;
+                        break;
+
+                    case "Medium":
+                        return exp = 750;
+                        break;
+
+                    case "Hard":
+                        return exp = 1100;
+                        break;
+
+                    case "Deadly":
+                        return exp = 1700;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 8)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 450;
+                        break;
+
+                    case "Medium":
+                        return exp = 900;
+                        break;
+
+                    case "Hard":
+                        return exp = 1400;
+                        break;
+
+                    case "Deadly":
+                        return exp = 2100;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 9)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 600;
+                        break;
+
+                    case "Medium":
+                        return exp = 1200;
+                        break;
+
+                    case "Hard":
+                        return exp = 1600;
+                        break;
+
+                    case "Deadly":
+                        return exp = 2400;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 10)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 600;
+                        break;
+
+                    case "Medium":
+                        return exp = 1200;
+                        break;
+
+                    case "Hard":
+                        return exp = 1900;
+                        break;
+
+                    case "Deadly":
+                        return exp = 2800;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 11)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 800;
+                        break;
+
+                    case "Medium":
+                        return exp = 1600;
+                        break;
+
+                    case "Hard":
+                        return exp = 2400;
+                        break;
+
+                    case "Deadly":
+                        return exp = 3600;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 12)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 1000;
+                        break;
+
+                    case "Medium":
+                        return exp = 2000;
+                        break;
+
+                    case "Hard":
+                        return exp = 3000;
+                        break;
+
+                    case "Deadly":
+                        return exp = 4500;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 13)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 1100;
+                        break;
+
+                    case "Medium":
+                        return exp = 2200;
+                        break;
+
+                    case "Hard":
+                        return exp = 3400;
+                        break;
+
+                    case "Deadly":
+                        return exp = 5100;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 14)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 1250;
+                        break;
+
+                    case "Medium":
+                        return exp = 2500;
+                        break;
+
+                    case "Hard":
+                        return exp = 3800;
+                        break;
+
+                    case "Deadly":
+                        return exp = 5700;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 15)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 1400;
+                        break;
+
+                    case "Medium":
+                        return exp = 2800;
+                        break;
+
+                    case "Hard":
+                        return exp = 4300;
+                        break;
+
+                    case "Deadly":
+                        return exp = 6400;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 16)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 1600;
+                        break;
+
+                    case "Medium":
+                        return exp = 3200;
+                        break;
+
+                    case "Hard":
+                        return exp = 4800;
+                        break;
+
+                    case "Deadly":
+                        return exp = 7200;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 17)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 2000;
+                        break;
+
+                    case "Medium":
+                        return exp = 3900;
+                        break;
+
+                    case "Hard":
+                        return exp = 5900;
+                        break;
+
+                    case "Deadly":
+                        return exp = 8800;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 18)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 2100;
+                        break;
+
+                    case "Medium":
+                        return exp = 4200;
+                        break;
+
+                    case "Hard":
+                        return exp = 6300;
+                        break;
+
+                    case "Deadly":
+                        return exp = 9500;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
+                        break;
+                }
+            }
+            else if (partylvl == 19)
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 2400;
+                        break;
+
+                    case "Medium":
+                        return exp = 4900;
+                        break;
+
+                    case "Hard":
+                        return exp = 7300;
+                        break;
+
+                    case "Deadly":
+                        return exp = 10900;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0; ;
+                        break;
+                }
+            }
+            else
+            {
+                switch (difficultyBox.Text)
+
+                {
+                    case "Easy":
+                        return exp = 2800;
+                        break;
+
+                    case "Medium":
+                        return exp = 5700;
+                        break;
+
+                    case "Hard":
+                        return exp = 8500;
+                        break;
+
+                    case "Deadly":
+                        return exp = 12700;
+                        break;
+
+                    default:
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
+                        return exp = 0;
+                        break;
+                }
+            }
+        }
+
+        private int ChallegeRatingFinder(double perMonsterExp)
+        {
+            if (perMonsterExp >= 155000)
+            {
+                return challenge_rateing = 30;
+            }
+            if (perMonsterExp >= 1350000)
+            {
+                return challenge_rateing = 29;
+            }
+            if (perMonsterExp >= 120000)
+            {
+                return challenge_rateing = 28;
+            }
+            if (perMonsterExp >= 105000)
+            {
+                return challenge_rateing = 27;
+            }
+            if (perMonsterExp >= 90000)
+            {
+                return challenge_rateing = 26;
+            }
+            if (perMonsterExp >= 75000)
+            {
+                return challenge_rateing = 25;
+            }
+            if (perMonsterExp >= 62000)
+            {
+                return challenge_rateing = 24;
+            }
+            if (perMonsterExp >= 50000)
+            {
+                return challenge_rateing = 23;
+            }
+            if (perMonsterExp >= 41000)
+            {
+                return challenge_rateing = 22;
+            }
+            if (perMonsterExp >= 33000)
+            {
+                return challenge_rateing = 21;
+            }
+            if (perMonsterExp >= 25000)
+            {
+                return challenge_rateing = 20;
+            }
+            if (perMonsterExp >= 22000)
+            {
+                return challenge_rateing = 19;
+            }
+            if (perMonsterExp >= 20000)
+            {
+                return challenge_rateing = 18;
+            }
+            if (perMonsterExp >= 18000)
+            {
+                return challenge_rateing = 17;
+            }
+            if (perMonsterExp >= 15000)
+            {
+                return challenge_rateing = 16;
+            }
+            if (perMonsterExp >= 13000)
+            {
+                return challenge_rateing = 15;
+            }
+            if (perMonsterExp >= 11500)
+            {
+                return challenge_rateing = 14;
+            }
+            if (perMonsterExp >= 10000)
+            {
+                return challenge_rateing = 13;
+            }
+            
+            if (perMonsterExp >= 8400)
+            {
+                return challenge_rateing = 12;
+            }
+            if (perMonsterExp >= 7200)
+            {
+                return challenge_rateing = 11;
+            }
+            if (perMonsterExp >= 5900)
+            {
+                return challenge_rateing = 10;
+            }
+            if (perMonsterExp >= 5000)
+            {
+                return challenge_rateing = 9;
+            }
+            if (perMonsterExp >= 3900)
+            {
+                return challenge_rateing = 8;
+            }
+            if (perMonsterExp >= 2900)
+            {
+                return challenge_rateing = 7;
+            }
+            if (perMonsterExp >= 2300)
+            {
+                return challenge_rateing = 6;
+            }
+            if (perMonsterExp >= 1800)
+            {
+                return challenge_rateing = 5;
+            }
+            if (perMonsterExp >= 1100)
+            {
+                return challenge_rateing = 4;
+            }
+            if (perMonsterExp >= 700)
+            {
+                return challenge_rateing = 3;
+            }
+            if (perMonsterExp >= 450)
+            {
+                return challenge_rateing = 2;
+            }
+            if (perMonsterExp >= 200)
+            {
+                return challenge_rateing = 1;
+            }
+            if (perMonsterExp >= 100)
+            {
+                return challenge_rateing = 1 / 2;
+            }
+            if (perMonsterExp >= 50)
+            {
+                return challenge_rateing = 1 / 4;
+            }
+            if (perMonsterExp >= 25)
+            {
+                return challenge_rateing = 1 / 8;
+            }
+            if (perMonsterExp >= 10)
+            {
+                return challenge_rateing = 0;
+            }
+            else
+            {
+                MessageBox.Show("something went wrong");
+                return challenge_rateing = 30;
+            }
+        }
+        public  string SafeGetString( SQLiteDataReader reader, int colIndex)
+        {
+            if (!reader.IsDBNull(colIndex))
+            {
+                return reader.GetString(colIndex);
+            }
+            else
+            {
+                return string.Empty;
             }
         }
     }
