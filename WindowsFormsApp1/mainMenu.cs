@@ -12,8 +12,6 @@ namespace DMCompainion
 
         public delegate void cNamePass(Label label);
 
-       
-
         private void backButton_Click(object sender, EventArgs e)
         {
             CamSelect f2 = new CamSelect();
@@ -87,8 +85,8 @@ namespace DMCompainion
         private void lootButton_Click(object sender, EventArgs e)
         {
             Loot f9 = new Loot();
-            cNamePass cname = new cNamePass(f9.cNameLabelFill);
-            cname(this.cNameLabel);
+            //cNamePass cname = new cNamePass(f9.cNameLabelFill);
+           // cname(this.cNameLabel);
             f9.Show();
         }
     }

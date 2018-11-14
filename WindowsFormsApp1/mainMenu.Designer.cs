@@ -47,10 +47,11 @@
             // mainlabel
             // 
             this.mainlabel.AutoSize = true;
-            this.mainlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainlabel.Location = new System.Drawing.Point(317, 9);
+            this.mainlabel.BackColor = System.Drawing.Color.Transparent;
+            this.mainlabel.Font = new System.Drawing.Font("Gabriola", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainlabel.Location = new System.Drawing.Point(292, 9);
             this.mainlabel.Name = "mainlabel";
-            this.mainlabel.Size = new System.Drawing.Size(174, 37);
+            this.mainlabel.Size = new System.Drawing.Size(220, 88);
             this.mainlabel.TabIndex = 0;
             this.mainlabel.Text = "Main Menu";
             // 
@@ -136,6 +137,7 @@
             // 
             // campaignImg
             // 
+            this.campaignImg.BackColor = System.Drawing.Color.Transparent;
             this.campaignImg.Location = new System.Drawing.Point(208, 125);
             this.campaignImg.Name = "campaignImg";
             this.campaignImg.Size = new System.Drawing.Size(413, 182);
@@ -167,6 +169,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.cNameLabel);
             this.Controls.Add(this.backButton);
@@ -183,6 +186,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainMenu";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Menu";
             ((System.ComponentModel.ISupportInitialize)(this.campaignImg)).EndInit();

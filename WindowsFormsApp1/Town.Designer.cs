@@ -44,9 +44,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.cWMNameLabel);
+            this.MaximizeBox = false;
             this.Name = "Town";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Town";
             this.ResumeLayout(false);
             this.PerformLayout();

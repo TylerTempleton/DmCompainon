@@ -38,6 +38,7 @@
             // 
             // worldMapBox
             // 
+            this.worldMapBox.BackColor = System.Drawing.Color.Transparent;
             this.worldMapBox.Location = new System.Drawing.Point(12, 37);
             this.worldMapBox.Name = "worldMapBox";
             this.worldMapBox.Size = new System.Drawing.Size(810, 329);
@@ -81,6 +82,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.cWMNameLabel);
             this.Controls.Add(this.closeButton);
@@ -89,6 +91,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "WorldMap";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WorldMap";
             this.Load += new System.EventHandler(this.WorldMap_Load);

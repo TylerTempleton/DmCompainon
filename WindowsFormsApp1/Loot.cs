@@ -1,17 +1,1178 @@
-﻿using System.Windows.Forms;
+﻿//This Window's purpose it to allow the user to generate rewards usuallly referenced as loot.
+//The user enters the Level of the party/ encounter's challenge rateing to generate an appropiate amount of money, gems, art, and magic items
+//The rewards are based on the Dungeon Masters Guide Treasure Tables found on Page 136 - 139
+using System;
+using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace DMCompainion
 {
     public partial class Loot : Form
-    {
+    {// initalize variables
+        private string lootType;
+        private string treasure, challengeRating;
+        private int randomNumber, dice;
+        private Random random = new Random();
+
+        //connection string to Database
+        private string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+
+        private string lootName, lootDesc, lootValue, lootWeight, lootRarity, lootCat, lootProp, lootReq;
+
         public Loot()
         {
             InitializeComponent();
         }
 
-        public void cNameLabelFill(Label cNameLabel)
+        //passing of the Campign Name to the loot generator window (nostly here incase we add a saving to indiviual campign profile)
+        //  public void cNameLabelFill(Label cNameLabel)
+        //   {
+        //      cWMNameLabel.Text = cNameLabel.Text;
+        //  }
+
+        //method of when generate loot button is pressed
+        private void LootGenButton_Click(object sender, EventArgs e)
+        {  //clear box of previous text
+            treasureBox.Clear();
+            // get values from dropdown boxes
+            lootType = (treasureTypeBox.Text);
+            challengeRating = (crValueBox.Text);
+
+            //Console.Write(lootType);
+
+            //check what the user has selected from the drop down
+            if (lootType == "Individual Treasure" && challengeRating != "-Select CR-")
+            {
+                GenerateBasicTreasure(challengeRating);
+            }
+            else if (lootType == "Treasure Hoard" && challengeRating != "-Select CR-")
+            {
+                GenerateTreasureHoard(challengeRating);
+            }
+            
+            else if (lootType == "One Loot Table to Rule Them All")
+            {
+                GenerateOLTtRTA();
+            }
+            //if the user doesnt get the correct inputs tell them to do so
+            else
+            {
+                MessageBox.Show("Please Ensure All Required Options Have Been Selected");
+            }
+            //apply treasure text to the text box via TreasureLabelfill method and give scroll bars to text box
+            treasureBox.ScrollBars = ScrollBars.Vertical;
+            TreasureLabelFill(treasure);
+        }
+
+        private void treasureBox_TextChanged(object sender, EventArgs e)
         {
-            cWMNameLabel.Text = cNameLabel.Text;
+
+        }
+
+        //method to get basic small amount of money loot based on level/challenge rateing
+        private string GenerateBasicTreasure(object selectedValue)
+        {//roll a d100 to determine tier of loot
+            randomNumber = DiceRoll(100);
+            //Result Checker
+            Console.WriteLine(randomNumber);
+            //low level CR loot
+            if (challengeRating == "0-4")
+            {
+                if (randomNumber <= 30)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6));
+                    treasure = dice.ToString() + " Copper Pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 60)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6));
+                    treasure = dice.ToString() + " Silver Pieces";
+                    return treasure;
+                }
+
+                if (randomNumber <= 70)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6));
+                    treasure = dice.ToString() + " Electrum Pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 95)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6));
+                    treasure = dice.ToString() + " Gold Pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 100)
+                {
+                    dice = DiceRoll(6);
+                    treasure = dice.ToString() + " Platium Pieces";
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 " +
+                        "";
+                }
+            }
+            //low-moderate  loot
+            if (challengeRating == "5-10")
+            {
+                if (randomNumber <= 30)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 100);
+                    treasure = dice.ToString() + " Copper Pieces, ";
+                    dice = (DiceRoll(6) * 10);
+                    treasure = treasure + dice.ToString() + " Electrum pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 60)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) * 10);
+                    treasure = dice.ToString() + " Silver Pieces";
+                    dice = ((DiceRoll(6) + DiceRoll(6)) * 10);
+                    treasure = treasure + dice.ToString() + " Gold pieces";
+                    return treasure;
+                }
+
+                if (randomNumber <= 70)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) * 10);
+                    treasure = dice.ToString() + " Silver Pieces";
+                    dice = ((DiceRoll(6) + DiceRoll(6)) * 10);
+                    treasure = treasure + dice.ToString() + " Gold pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 95)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 10);
+                    treasure = dice.ToString() + " Gold Pieces";
+                    return treasure;
+                }
+                if (randomNumber <= 100)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6)) * 10);
+                    treasure = dice.ToString() + " Gold Pieces";
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice.ToString() + " Platinum pieces";
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                }
+            }
+            //moderate-high loot
+            if (challengeRating == "11-16")
+            {
+                if (randomNumber <= 20)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) * 100);
+                    treasure = dice.ToString() + " Silver Pieces, ";
+                    dice = (DiceRoll(6) * 10);
+                    treasure = treasure + dice.ToString() + " Electrum Pieces ";
+                    return treasure;
+                }
+                if (randomNumber <= 35)
+                {
+                    dice = (DiceRoll(6) * 100);
+                    treasure = dice.ToString() + " Electrum Pieces, ";
+                    dice = (DiceRoll(6) * 100);
+                    treasure = treasure + dice.ToString() + " Gold Pieces ";
+                    return treasure;
+                }
+
+                if (randomNumber <= 75)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) * 100);
+                    treasure = dice.ToString() + " Gold Pieces, ";
+                    dice = (DiceRoll(6) * 10);
+                    treasure = treasure + dice.ToString() + " Platinum Pieces ";
+                    return treasure;
+                }
+
+                if (randomNumber <= 100)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) * 100);
+                    treasure = dice.ToString() + " Gold Pieces, ";
+                    dice = (DiceRoll(6) + DiceRoll(6) * 10);
+                    treasure = treasure + dice.ToString() + " Platinum Pieces ";
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                }
+            }
+            // high - epic loot
+            if (challengeRating == "17+")
+            {
+                if (randomNumber <= 15)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6) * 1000);
+                    treasure = dice.ToString() + " Electrum Pieces, ";
+                    dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) * 100);
+                    treasure = treasure + dice.ToString() + " Gold Pieces ";
+                    return treasure;
+                }
+                if (randomNumber <= 55)
+                {
+                    dice = (DiceRoll(6) * 1000);
+                    treasure = dice.ToString() + " Gold Pieces, ";
+                    dice = (DiceRoll(6) + DiceRoll(6) * 10);
+                    treasure = treasure + dice.ToString() + " Platinum Pieces ";
+                    return treasure;
+                }
+
+                if (randomNumber <= 100)
+                {
+                    dice = (DiceRoll(6) * 1000);
+                    treasure = dice.ToString() + " Gold Pieces, ";
+                    dice = (DiceRoll(6) + DiceRoll(6) * 100);
+                    treasure = treasure + dice.ToString() + " Platinum Pieces ";
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                   
+                }
+            }
+            //catch all if somehow the value isn't between 1-100 
+            else
+            {
+                return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+            }
+        }
+        //Method generates large chunk of treasure in the form of money, gems, art and magic items
+        private string GenerateTreasureHoard(object selectedValue)
+        {
+            randomNumber = DiceRoll(100);
+            Console.WriteLine(randomNumber);
+            if (challengeRating == "0-4")
+            {//generates baseline amount of money for the 0-4 tier
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 100);
+                treasure = dice.ToString() + " Copper Pieces, ";
+                dice = (DiceRoll(6) + DiceRoll(6) + DiceRoll(6) * 100);
+                treasure = treasure + dice.ToString() + " Silver pieces,  ";
+                dice = (DiceRoll(6) + DiceRoll(6) * 10);
+                treasure = treasure + dice.ToString() + " Gold pieces  ";
+                treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
+
+                if (randomNumber <= 6)
+                {
+                    treasure = treasure + " Nothing Else ";
+
+                    return treasure;
+                }
+                if (randomNumber <= 16)
+                {
+                    dice = DiceRoll(6) + DiceRoll(6);
+                    treasure = treasure + dice + " 10 GP Gems ";
+                    return treasure;
+                }
+                if (randomNumber <= 26)
+                {
+                    dice = DiceRoll(4) + DiceRoll(4);
+                    treasure = treasure + dice + " 25 GP Works of Art ";
+
+                    return treasure;
+                }
+                if (randomNumber <= 36)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    return treasure;
+                }
+                if (randomNumber <= 44)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  10 GP Gems";
+                    dice = DiceRoll(6);
+                    MagicTableA(dice);
+
+                    return treasure;
+                }
+                if (randomNumber <= 52)
+                {
+                    dice = (DiceRoll(4) + DiceRoll(4));
+                    treasure = treasure + dice + "  25 GP Art Objects";
+                    dice = DiceRoll(6);
+                    MagicTableA(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 60)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    dice = DiceRoll(6);
+                    MagicTableA(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 65)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  10 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableB(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 70)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  25 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableB(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 75)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableB(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 78)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  10 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 80)
+                {
+                    dice = (DiceRoll(4) + DiceRoll(4));
+                    treasure = treasure + dice + "  25 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 85)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+
+                    return treasure;
+                }
+                if (randomNumber <= 92)
+                {
+                    dice = (DiceRoll(4) + DiceRoll(4));
+                    treasure = treasure + dice + "  25 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 97)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 99)
+                {
+                    dice = (DiceRoll(4) + DiceRoll(4));
+                    treasure = treasure + dice + "  25 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                if (randomNumber == 100)
+                {
+                    dice = (DiceRoll(6) + DiceRoll(6));
+                    treasure = treasure + dice + "  50 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                }
+            }
+            if (challengeRating == "5-10")
+            {//generates baseline amount of money for the 5-10 tier
+                dice = ((DiceRoll(6) + DiceRoll(6)) * 100);
+                treasure = dice.ToString() + " Copper Pieces, ";
+                dice = ((DiceRoll(6) + DiceRoll(6)) * 100);
+                treasure = treasure + dice.ToString() + " Silver pieces,  ";
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 100);
+                treasure = treasure + dice.ToString() + " Gold pieces  ";
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 10);
+                treasure = treasure + dice.ToString() + " Platinum pieces,  ";
+                treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
+                if (randomNumber <= 4)
+                {
+                    treasure = treasure + "Nothing Else";
+                    return treasure;
+                }
+                if (randomNumber <= 28)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)));
+                    treasure = treasure + dice.ToString() + "  100 GP Gems";
+                    return treasure;
+                }
+
+                if (randomNumber <= 44)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)));
+                    treasure = treasure + dice.ToString() + "  250 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableA(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 63)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 2);
+                    treasure = treasure + dice.ToString() + "  100 GP Gems";
+                    dice = DiceRoll(4);
+                    MagicTableB(dice);
+                    return treasure;
+                }
+                if (randomNumber <= 100)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)));
+                    treasure = treasure + dice.ToString() + "  250 GP Art";
+                    dice = DiceRoll(4);
+                    MagicTableC(dice);
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                }
+            }
+            if (challengeRating == "11-16")
+            {//generates baseline amount of money for the 11-16 tier
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) * 1000);
+                treasure = treasure + dice.ToString() + " Gold pieces,  ";
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) +DiceRoll(6) * 100);
+                treasure = treasure + dice.ToString() + " Platinum pieces ";
+                treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
+                if (randomNumber <= 3)
+                {
+                    treasure = treasure + " Nothing Else";
+                    return treasure;
+                }
+
+                if (randomNumber <= 15)
+                {
+                    dice = (DiceRoll(4) + DiceRoll(4) + DiceRoll(4));
+                    treasure = treasure + dice.ToString() + " 500 GP Gems";
+                    return treasure;
+                }
+                if (randomNumber <= 29)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                    treasure = treasure + dice.ToString() + " Gold pieces,  ";
+                    treasure = treasure + (MagicTableA(DiceRoll(4))) + (MagicTableB(DiceRoll(6)));
+                    return treasure;
+                }
+                if (randomNumber <= 50)
+                {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 750);
+                    treasure = treasure + dice.ToString() + " Gold Pieces,   ";
+                    treasure = treasure + MagicTableC(DiceRoll(6));
+
+                    return treasure;
+                }
+                if (randomNumber <= 66)
+                {
+                    return treasure;
+                }
+                if (randomNumber <= 74)
+                {
+                    return treasure;
+                }
+                if (randomNumber <= 82)
+                {
+                    return treasure;
+                }
+                if (randomNumber <= 92)
+                {
+                    return treasure;
+                }
+                if (randomNumber <= 100)
+                {
+                    return treasure;
+                }
+                else
+                {
+                    return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                }
+            }
+            if (challengeRating == "17")
+            {//generates baseline amount of money for the 17+ tier
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                treasure = treasure + dice.ToString() + " Gold pieces,  ";
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) * 100);
+                treasure = treasure + dice.ToString() + " Platinum pieces ";
+                treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
+
+                if (randomNumber <= 2)
+                {
+                    treasure = treasure + "Nothing Else ";
+                    return treasure;
+                }
+                if (randomNumber >= 60)
+                {
+                    return treasure;
+                }
+
+                if (randomNumber >= 70)
+                {
+                    return treasure;
+                }
+                if (randomNumber >= 95)
+                {
+                    return treasure;
+                }
+                if (randomNumber >= 100)
+                {
+                    return treasure;
+                }
+                else
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
+                    return treasure;
+                }
+            }
+            // Catch all for values outside of 1-100 
+            else
+            {
+                treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR RANDOMNUMBER VALUE NOT BETWEEN 1 - 100 ";
+                return treasure;
+            }
+        }
+
+        private string MagicTableE(int dice)
+        
+            {//repeat method equal to number rolled on the dice
+                for (int i = 0; i < dice; i++)
+
+                {
+                int tableroll = DiceRoll(100);
+
+                if (tableroll <= 30)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll(8th LVL) ";
+                    return treasure;
+                }
+                if (tableroll <= 55)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Storm Giant's Strength ";
+                    return treasure;
+
+                }
+                if (tableroll <= 70)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Supreme Healing ";
+                    return treasure;
+
+                }
+                if (tableroll <= 85)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (9th LVL) ";
+                    return treasure;
+
+                }
+                if (tableroll <= 93)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Universal Solvent ";
+                    return treasure;
+
+                }
+                if (tableroll <= 98)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Arrow of Slaying ";
+                    return treasure;
+
+                }
+                if (tableroll <= 100)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Sovereign Glue ";
+                    return treasure;
+
+                }
+                else
+                    {
+                        treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
+                        return treasure;
+                    }
+
+                }
+                //return treasures generated to treasureBox
+                return treasure;
+            }
+
+            private string MagicTableD(int dice)
+        {//repeat method equal to number rolled on the dice
+            for (int i = 0; i < dice; i++)
+
+            {
+                int tableroll = DiceRoll(100);
+
+                if (tableroll <= 20)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Supreme Healing ";
+                    return treasure;
+                }
+                if (tableroll <= 30)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  potion of Invisibility ";
+                    return treasure;
+                }
+                if (tableroll <= 40)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Speed ";
+                    return treasure;
+                }
+                if (tableroll <= 50)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (6th LVL) ";
+                    return treasure;
+                }
+                if (tableroll <= 57)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Spell Scroll (7th LVL) ";
+                    return treasure;
+                }
+                if (tableroll <= 62)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Ammunition +3 ";
+                    return treasure;
+                }
+                if (tableroll <= 67)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Oil of Sharpness ";
+                    return treasure;
+                }
+                if (tableroll <= 72)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Flying ";
+                    return treasure;
+                }
+                if (tableroll <= 77)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Cloud Giant's Strength  ";
+                    return treasure;
+                }
+                if (tableroll <= 82)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Longevity ";
+                    return treasure;
+                }
+                if (tableroll <= 87)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Potion of Vitality ";
+                    return treasure;
+                }
+                if (tableroll <= 92)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (8th LVL) ";
+                    return treasure;
+                }
+                if (tableroll <= 95)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Horseshoes of a Zephyr ";
+                    return treasure;
+                }
+                if (tableroll <= 98)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Nolzuf's Marvelous Pigments ";
+                    return treasure;
+                }
+                if (tableroll == 99)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Bag of Devouring ";
+                    return treasure;
+                }
+                if (tableroll == 100)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Portable Hole ";
+                    return treasure;
+                }
+                else
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
+                    return treasure;
+                }
+
+            }
+            //return treasures generated to treasureBox
+            return treasure;
+        }
+        //generates middle to high power magic loot times the number of times rolled on dice
+        private string MagicTableC(int dice)
+        {//repeat method equal to number rolled on the dice
+            for (int i = 0; i < dice; i++)
+
+            {
+                int tableroll = DiceRoll(100);
+
+                if (tableroll <= 15)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Superior Healing";
+                    return treasure;
+                }
+                if (tableroll <= 22)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll(lvl 4)";
+                    return treasure;
+                }
+                if (tableroll <= 27)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Ammunition +2";
+                    return treasure;
+                }
+                if (tableroll <= 32)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Clairvoyance";
+                    return treasure;
+                }
+                if (tableroll <= 37 )
+                {
+                    treasure = treasure + System.Environment.NewLine + " Potion of Diminution ";
+                    return treasure;
+                }
+                if (tableroll <= 42)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Gaseous Form";
+                    return treasure;
+                }
+                if (tableroll <= 47)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Frost Giant Strength";
+                    return treasure;
+                }
+                if (tableroll <= 52 )
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Stone Giant Strength";
+                    return treasure;
+                }
+                if (tableroll <= 57)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Heroism";
+                    return treasure;
+                }
+                if (tableroll <= 62)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Invulnerability";
+                    return treasure;
+                }
+                if (tableroll <= 67)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Potion of Mind Reading ";
+                    return treasure;
+                }
+                if (tableroll <= 72 )
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (5th Lvl) ";
+                    return treasure;
+                }
+                if (tableroll <= 75)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Elixir of Health ";
+                    return treasure;
+                }
+                if (tableroll <= 78)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Oil of Etherealness ";
+                    return treasure;
+                }
+                if (tableroll <=81 )
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Fire Giant Strength ";
+                    return treasure;
+                }
+                if (tableroll <= 84)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Quaal's Feather Token ";
+                    return treasure;
+                }
+                if (tableroll <= 87)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Scroll of Protection  ";
+                    return treasure;
+                }
+                if (tableroll <= 89)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Bag of Beans ";
+                    return treasure;
+                }
+                if (tableroll <= 91)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Bead of Force ";
+                    return treasure;
+                }
+                if (tableroll == 92 )
+                {
+                    treasure = treasure + System.Environment.NewLine + " Chime of Opening ";
+                    return treasure;
+                }
+                if (tableroll == 93)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Decanter of Endless Water ";
+                    return treasure;
+                }
+                if (tableroll ==94)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Eyes of Minute Seeing ";
+                    return treasure;
+                }
+                if (tableroll == 95)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Folding Ship ";
+                    return treasure;
+                }
+                if (tableroll == 96)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Heward's Handy Havershack ";
+                    return treasure;
+                }
+                if (tableroll == 97)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Horseshoes of Speed ";
+                    return treasure;
+                }
+                if (tableroll == 98)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Necklace of Fireballs ";
+                    return treasure;
+                }
+                if (tableroll == 99)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Periapt of Health ";
+                    return treasure;
+                }
+                if (tableroll == 100)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Sending Stones ";
+                    return treasure;
+                }
+                else
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
+                    return treasure;
+                }
+
+            }
+            //return treasures generated to treasureBox
+            return treasure;
+        }
+
+        //Generate middling magic power loot times the number of times rolled on dice
+        private string MagicTableB(int dice)
+        {
+            for (int i = 0; i < dice; i++)
+            {
+                int tableroll = DiceRoll(100);
+
+                if (tableroll <= 15)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Greater Healing";
+                    return treasure;
+                }
+                if (tableroll <= 22)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Fire Breathing)";
+                    return treasure;
+                }
+                if (tableroll <= 29)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Resistance";
+                    return treasure;
+                }
+                if (tableroll <= 34)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Ammunition +1";
+                    return treasure;
+                }
+                if (tableroll <= 39)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Animal Friendship";
+                    return treasure;
+                }
+                if (tableroll <= 44)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Hill Giant's Strength";
+                    return treasure;
+                }
+                if (tableroll <= 49)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Growth";
+                    return treasure;
+                }
+                if (tableroll <= 54)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Potion of WaterBreathing";
+                    return treasure;
+                }
+                if (tableroll <= 59)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Spell Scroll (lvl2)";
+                    return treasure;
+                }
+                if (tableroll <= 64)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Spell Scroll (lvl3)";
+                    return treasure;
+                }
+                
+                if (tableroll <= 67)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Bag of Holding";
+                    return treasure;
+                }
+                if (tableroll <= 70)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Keoghtom's Ointment";
+                    return treasure;
+                }
+                if (tableroll <= 73)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Oil of Slipperiness";
+                    return treasure;
+                }
+                if (tableroll <= 75)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Dust of Disapperence";
+                    return treasure;
+                }
+                if (tableroll <= 77)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Dust of Dryness";
+                    return treasure;
+                }
+                if (tableroll <= 79)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Dust of Sneezing and choking";
+                    return treasure;
+                }
+                if (tableroll <= 81)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Elemental Gem";
+                    return treasure;
+                }
+                if (tableroll <= 83)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Philter of Love";
+                    return treasure;
+                }
+                if (tableroll == 84)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Alchemy Jug";
+                    return treasure;
+                }
+                if (tableroll == 85)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Cap of Water Breathing";
+                    return treasure;
+                }
+                if (tableroll == 86)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Cloak of the Manta Ray";
+                    return treasure;
+                }
+                if (tableroll == 87)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Driftglobe";
+                    return treasure;
+                }
+                if (tableroll == 88)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Goggles of Night";
+                    return treasure;
+                }
+                if (tableroll == 89)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Helm of Comprehending Languages";
+                    return treasure;
+                }
+                if (tableroll == 90)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Immovable Rod";
+                    return treasure;
+                }
+                if (tableroll == 91)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Lantern of Revealing";
+                    return treasure;
+                }
+                if (tableroll == 92)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Mariner's Armor";
+                    return treasure;
+                }
+                if (tableroll == 93)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Mithral Armour";
+                    return treasure;
+                }
+                if (tableroll == 94)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Potion of Poison";
+                    return treasure;
+                }
+                if (tableroll == 95)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Ring of Swimming";
+                    return treasure;
+                }
+                if (tableroll == 96)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Robe of Useful Items";
+                    return treasure;
+                }
+                if (tableroll == 97)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Rope of Climbing";
+                    return treasure;
+                }
+                if (tableroll == 98)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Saddle of the Cavalier";
+                    return treasure;
+                }
+                if (tableroll == 99)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Wand of Magic Detection";
+                    return treasure;
+                }
+                if (tableroll == 100)
+                {
+                    treasure = treasure + System.Environment.NewLine + " Wand of Secrets";
+                    return treasure;
+                }
+               
+                else
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100";
+                    return treasure;
+                }
+            }
+        
+            return treasure;
+        }
+
+        //generates low magic item loot times the number of times rolled on dice
+        private string MagicTableA(int dice)
+        {
+            for (int i = 0; i < dice; i++)
+            {
+                int tableroll = DiceRoll(100);
+                if (tableroll <= 50)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Healing";
+                    return treasure;
+                }
+                if (tableroll <= 60)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (Cantrip)";
+                    return treasure;
+                }
+                if (tableroll <= 70)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Climbing";
+                    return treasure;
+                }
+                if (tableroll <= 90)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (lvl 1)";
+                    return treasure;
+                }
+                if (tableroll <= 94)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (lvl 2)";
+                    return treasure;
+                }
+                if (tableroll <= 98)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Greater healing";
+                    return treasure;
+                }
+                if (tableroll == 99)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Bag of Holding";
+                    return treasure;
+                }
+                if (tableroll == 100)
+                {
+                    treasure = treasure + System.Environment.NewLine + " DriftGlobe ";
+                    return treasure;
+                }
+                else
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100";
+                    return treasure;
+                }
+            }
+            return treasure;
+        }
+
+      
+        //Method Accesses database's Loot table to get 1 random magic item
+        private string GenerateOLTtRTA()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(conn_string.ToString()))
+            {//open DB connection
+                conn.Open();
+                using (SQLiteCommand cmd = conn.CreateCommand())
+                {
+                    //select all magic items and randomly select one
+                    cmd.CommandText = "SELECT * FROM loot ORDER BY RANDOM() LIMIT 1;";
+
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
+                    {
+                        //Check the reader has data:
+                        if (reader.Read())
+                        {
+                            //assign result to
+                            lootName = SafeGetString(reader, reader.GetOrdinal("Name"));
+                            lootDesc = SafeGetString(reader, reader.GetOrdinal("Description"));
+                            lootValue = SafeGetString(reader, reader.GetOrdinal("Value"));
+                            lootRarity = SafeGetString(reader, reader.GetOrdinal("Rarity"));
+                            lootWeight = SafeGetString(reader, reader.GetOrdinal("Weight"));
+                            lootCat = SafeGetString(reader, reader.GetOrdinal("Category"));
+                            lootProp = SafeGetString(reader, reader.GetOrdinal("Properties"));
+                            lootReq = SafeGetString(reader, reader.GetOrdinal("Requirements"));
+                            treasure = treasure +System.Environment.NewLine + lootName + "  " + lootCat + System.Environment.NewLine + lootDesc + System.Environment.NewLine + lootValue + "  " + lootRarity + "  " + lootWeight + System.Environment.NewLine + lootProp + System.Environment.NewLine + lootReq + System.Environment.NewLine;
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return treasure;
+        }
+
+        //Method used to check if string values in datareader ar not null if null return an empty string 
+        public string SafeGetString(SQLiteDataReader reader, int colIndex)
+        {
+            if (!reader.IsDBNull(colIndex))
+            {
+                return reader.GetString(colIndex);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        //Method attaches treasure string value to treasureBox's Text for the user to see the results
+        private void TreasureLabelFill(string treasure)
+        {
+            treasureBox.Text = treasure;
+        }
+
+        //This Method takes a number and "rolls" like a dice to randomly generate a number between 1 and the number entered  
+        private int DiceRoll(int x)
+        {
+            return random.Next(1, x + 1);
         }
     }
 }

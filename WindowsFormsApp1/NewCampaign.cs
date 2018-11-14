@@ -77,8 +77,9 @@ namespace DMCompainion
         private void backButton_Click(object sender, EventArgs e)
         {
             CamSelect f2 = new CamSelect();
-            this.Hide();
+
             f2.Show();
+            this.Close();
         }
     }
 }

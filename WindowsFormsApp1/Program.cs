@@ -19,7 +19,7 @@ namespace DMCompainion
             Application.Run();
         }
 
-        static void FormClosed(object sender, FormClosedEventArgs e)
+        private static void FormClosed(object sender, FormClosedEventArgs e)
         {
             ((Form)sender).FormClosed -= FormClosed;
             if (Application.OpenForms.Count == 0) Application.ExitThread();

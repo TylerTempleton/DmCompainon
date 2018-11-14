@@ -31,10 +31,7 @@ namespace DMCompainion
             {
                 // instance of Main Menu form window
                 MainMenu f3 = new MainMenu();
-                
-                
-               
-                
+
                 //pass campaign data
                 cNamePass cname = new cNamePass(f3.cNameLabelFill);
                 cname(this.listBox1);
@@ -43,16 +40,15 @@ namespace DMCompainion
                 f3.Show();
                 this.Close();
             }
-           
         }
-       
+
         private void newButton_Click(object sender, EventArgs e)
         { // instance of new campaign form window
             NewCampaign f2 = new NewCampaign();
-            // hide old form
-            this.Close();
             // show new form
             f2.Show();
+            // hide old form
+            this.Close();
         }
 
         private void delButton_Click(object sender, EventArgs e)

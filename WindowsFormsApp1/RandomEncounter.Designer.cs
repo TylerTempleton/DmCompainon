@@ -51,6 +51,8 @@
             this.playerMultiValue = new System.Windows.Forms.Label();
             this.lineBar = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.monsterBox = new ZBobb.AlphaBlendTextBox();
+            this.dmgVulLabel = new System.Windows.Forms.Label();
             this.actionLabel5 = new System.Windows.Forms.Label();
             this.actionLabel4 = new System.Windows.Forms.Label();
             this.actionLabel3 = new System.Windows.Forms.Label();
@@ -93,7 +95,6 @@
             this.sizeLabel = new System.Windows.Forms.Label();
             this.subtypeLabel = new System.Windows.Forms.Label();
             this.typeLabel = new System.Windows.Forms.Label();
-            this.dmgVulLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.partyLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOfMons)).BeginInit();
@@ -367,6 +368,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.monsterBox);
             this.panel1.Controls.Add(this.dmgVulLabel);
             this.panel1.Controls.Add(this.actionLabel5);
             this.panel1.Controls.Add(this.actionLabel4);
@@ -414,6 +416,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(613, 393);
             this.panel1.TabIndex = 40;
+            // 
+            // monsterBox
+            // 
+            this.monsterBox.BackAlpha = 0;
+            this.monsterBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.monsterBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.monsterBox.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.monsterBox.Location = new System.Drawing.Point(0, 0);
+            this.monsterBox.Multiline = true;
+            this.monsterBox.Name = "monsterBox";
+            this.monsterBox.Size = new System.Drawing.Size(613, 393);
+            this.monsterBox.TabIndex = 83;
+            this.monsterBox.Text = "Test text";
+            // 
+            // dmgVulLabel
+            // 
+            this.dmgVulLabel.AutoSize = true;
+            this.dmgVulLabel.Location = new System.Drawing.Point(24, 147);
+            this.dmgVulLabel.Name = "dmgVulLabel";
+            this.dmgVulLabel.Size = new System.Drawing.Size(114, 13);
+            this.dmgVulLabel.TabIndex = 82;
+            this.dmgVulLabel.Text = "Damage Vulnerabilities";
             // 
             // actionLabel5
             // 
@@ -805,20 +829,11 @@
             this.typeLabel.TabIndex = 45;
             this.typeLabel.Text = "Type";
             // 
-            // dmgVulLabel
-            // 
-            this.dmgVulLabel.AutoSize = true;
-            this.dmgVulLabel.Location = new System.Drawing.Point(24, 147);
-            this.dmgVulLabel.Name = "dmgVulLabel";
-            this.dmgVulLabel.Size = new System.Drawing.Size(114, 13);
-            this.dmgVulLabel.TabIndex = 82;
-            this.dmgVulLabel.Text = "Damage Vulnerabilities";
-            // 
             // RandomEncounter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::DMCompainion.Properties.Resources.paper_background;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lineBar);
@@ -842,8 +857,11 @@
             this.Controls.Add(this.partyLevelLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cWMNameLabel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "RandomEncounter";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "RandomEncounter";
             ((System.ComponentModel.ISupportInitialize)(this.numberOfPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.partyLevel)).EndInit();
@@ -922,5 +940,6 @@
         private System.Windows.Forms.Label actionLabel1;
         private System.Windows.Forms.Label specialLabel3;
         private System.Windows.Forms.Label dmgVulLabel;
+        private ZBobb.AlphaBlendTextBox monsterBox;
     }
 }

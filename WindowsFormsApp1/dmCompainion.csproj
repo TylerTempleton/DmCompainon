@@ -65,6 +65,10 @@
     <StartupObject>DMCompainion.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AlphaBlendTextBox, Version=1.0.1270.35793, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\AlphaBlendTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -125,6 +129,11 @@
     </Compile>
     <Compile Include="Pc.Designer.cs">
       <DependentUpon>Pc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RandomEncounter.cs">
       <SubType>Form</SubType>
@@ -202,14 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="WorldMap.resx">
       <DependentUpon>WorldMap.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,6 +240,7 @@
   <ItemGroup>
     <Content Include="dnd-icon.ico" />
     <Content Include="Resources\paper_background.jpg" />
+    <None Include="Resources\treasure.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

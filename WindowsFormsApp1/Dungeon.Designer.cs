@@ -50,7 +50,9 @@
             this.ClientSize = new System.Drawing.Size(834, 480);
             this.Controls.Add(this.cWMNameLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Dungeon";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Dungeon";
             this.ResumeLayout(false);
             this.PerformLayout();

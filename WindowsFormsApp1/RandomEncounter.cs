@@ -1,4 +1,8 @@
-﻿using System;
+﻿//This Window of the program is to Generate Monsters for a Random Enounter.
+//The user enters the number of party members, the level of the party and difficulty and number of monster you want them to face.
+//based on the entered information using the encounter calculations from the dungeon master's guide generate the EXP budget.
+//Based on the exp budget and number of monsters it generated the appopriate Challenge Rating per monster and randomly selects one of that Challenge Rating
+using System;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
@@ -7,14 +11,12 @@ namespace DMCompainion
     public partial class RandomEncounter : Form
     {// connection string to MySql database
         private string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
-        private string monName, monSize, hitpoints, armorClass, speed, alignment, type, subtype, strength, dexterity, constitution, intelligence, wisdom, charisma, conSave,intSave,wisSave;
-
-        
+        //initalize variables
+        private string monName, monSize, hitpoints, armorClass, speed, alignment, type, subtype, strength, dexterity, constitution, intelligence, wisdom, charisma, conSave, intSave, wisSave, dmgVul, dmgres, dmgImu,
+         condition, senses, lang, lineString, special1, special2, special3, action1, action2, action3, action4, action5;
 
         private int partylvl, partysize, playersizeMulti, numMonsters, challenge_rateing;
         private double exp, perMonsterExp, baseExp, partySizeMulti, monsterMulti;
-
-        
 
         public RandomEncounter()
         {
@@ -46,11 +48,11 @@ namespace DMCompainion
             // calculate XP by level
 
             ExpCalc(partylvl);
-            
+
             //assign base exp to exp before multipliers
             baseExp = exp;
+           
             //Encounter Multipliers
-
             if (numMonsters == 2)
             {
                 exp = Math.Round(exp * 1.5, 0);
@@ -95,7 +97,7 @@ namespace DMCompainion
                 exp = exp * 0.5;
                 partySizeMulti = 0.5;
             }
-            //set Exp value and show Exp to user
+            //set Exp value to labels
             expValue.Text = exp.ToString();
             besxpValue.Text = baseExp.ToString();
             monsterMultiValue.Text = monsterMulti.ToString();
@@ -112,7 +114,9 @@ namespace DMCompainion
             //Console.WriteLine("exp Value " + exp.ToString());
             //Console.WriteLine("permonster Value " + perMonsterExp.ToString());
             //Console.WriteLine("Challenge rating " + challenge_rateing.ToString());
-
+            
+            
+            //show EXP budget labels  for user
             bexpLabel.Visible = true;
             besxpValue.Visible = true;
             playerMultiLabel.Visible = true;
@@ -138,17 +142,15 @@ namespace DMCompainion
                     {
                         //Check the reader has data:
                         if (reader.Read())
-                        {
+                        {//add values appropiate variables
                             monName = reader.GetString(reader.GetOrdinal("name"));
                             hitpoints = reader.GetString(reader.GetOrdinal("hit_points"));
                             armorClass = reader.GetString(reader.GetOrdinal("armor_class"));
                             speed = reader.GetString(reader.GetOrdinal("speed"));
-                            alignment = reader.GetString(reader.GetOrdinal("alignment"));
                             monSize = reader.GetString(reader.GetOrdinal("size"));
                             type = reader.GetString(reader.GetOrdinal("type"));
-
                             subtype = SafeGetString(reader, reader.GetOrdinal("subtype"));
-                            
+                            alignment = reader.GetString(reader.GetOrdinal("alignment"));
                             strength = reader.GetString(reader.GetOrdinal("strength"));
                             dexterity = reader.GetString(reader.GetOrdinal("dexterity"));
                             constitution = reader.GetString(reader.GetOrdinal("constitution"));
@@ -158,42 +160,55 @@ namespace DMCompainion
                             conSave = "CON Save: " + SafeGetString(reader, reader.GetOrdinal("constitution_save"));
                             intSave = "INT Save: " + SafeGetString(reader, reader.GetOrdinal("intelligence_save"));
                             wisSave = "WIS Save: " + SafeGetString(reader, reader.GetOrdinal("wisdom_save"));
-                            savesLabel.Text = conSave + " , " +intSave + " , " + wisSave  ;
-                            dmgVulLabel.Text = "Damage Vulnerabilities: " + SafeGetString(reader, reader.GetOrdinal("damage_vulnerabilities")).ToString();
-                            dmgresLabel.Text = "Damage Resistances: " + SafeGetString(reader, reader.GetOrdinal("damage_resistence")).ToString();
-                            dmgImuLabel.Text = "Damage Immunities " + SafeGetString(reader, reader.GetOrdinal("damage_immunities")).ToString();
-                            conditionLabel.Text = "Condition Immunities " + SafeGetString(reader, reader.GetOrdinal("condition_immunities")).ToString();
-                            sensesLabel.Text = "Senses: " + SafeGetString(reader, reader.GetOrdinal("senses")).ToString();
-                            langLabel.Text = "Languages:  " + SafeGetString(reader, reader.GetOrdinal("languages")).ToString();
-                            specialLabel1.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/0/name")).ToString() +": " +SafeGetString(reader, reader.GetOrdinal("special_abilities/0/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/0/attack_bonus")).ToString(); 
-                            specialLabel2.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/attack_bonus")).ToString();
-                            specialLabel3.Text = SafeGetString(reader, reader.GetOrdinal("special_abilities/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/attack_bonus")).ToString();
 
-                            actionLabel1.Text = SafeGetString(reader, reader.GetOrdinal("actions/0/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/0/desc")).ToString() ;
-                            actionLabel2.Text = SafeGetString(reader, reader.GetOrdinal("actions/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/1/desc")).ToString() ;
-                            actionLabel3.Text = SafeGetString(reader, reader.GetOrdinal("actions/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/2/desc")).ToString() ;
-                            actionLabel4.Text = SafeGetString(reader, reader.GetOrdinal("actions/3/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/3/desc")).ToString() ;
-                            actionLabel5.Text = SafeGetString(reader, reader.GetOrdinal("actions/4/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/4/desc")).ToString() ;
+                            dmgVul = "Damage Vulnerabilities: " + SafeGetString(reader, reader.GetOrdinal("damage_vulnerabilities")).ToString();
+                            dmgres = "Damage Resistances: " + SafeGetString(reader, reader.GetOrdinal("damage_resistence")).ToString();
+                            dmgImu = "Damage Immunities " + SafeGetString(reader, reader.GetOrdinal("damage_immunities")).ToString();
+                            condition = "Condition Immunities " + SafeGetString(reader, reader.GetOrdinal("condition_immunities")).ToString();
+                            senses = "Senses: " + SafeGetString(reader, reader.GetOrdinal("senses")).ToString();
+                            lang = "Languages:  " + SafeGetString(reader, reader.GetOrdinal("languages")).ToString();
+                            special1 = SafeGetString(reader, reader.GetOrdinal("special_abilities/0/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/0/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/0/attack_bonus")).ToString();
+                            special2 = SafeGetString(reader, reader.GetOrdinal("special_abilities/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/1/attack_bonus")).ToString();
+                            special3 = SafeGetString(reader, reader.GetOrdinal("special_abilities/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/desc")).ToString() + SafeGetString(reader, reader.GetOrdinal("special_abilities/2/attack_bonus")).ToString();
+
+                            action1 = SafeGetString(reader, reader.GetOrdinal("actions/0/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/0/desc")).ToString();
+                            action2 = SafeGetString(reader, reader.GetOrdinal("actions/1/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/1/desc")).ToString();
+                            action3 = SafeGetString(reader, reader.GetOrdinal("actions/2/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/2/desc")).ToString();
+                            action4 = SafeGetString(reader, reader.GetOrdinal("actions/3/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/3/desc")).ToString();
+                            action5 = SafeGetString(reader, reader.GetOrdinal("actions/4/name")).ToString() + ": " + SafeGetString(reader, reader.GetOrdinal("actions/4/desc")).ToString();
                             //call safegetstring if columnn can be null
                             //string  = reader.GetString(reader.GetOrdinal(""));
-                            crLabel.Text = "CR: " + challenge_rateing.ToString() ;
-                            monsterNameLabel.Text = monName.ToString();
-                            sizeLabel.Text = monSize.ToString();
-                            typeLabel.Text = type.ToString();
-                            subtypeLabel.Text = subtype.ToString();
-                            alignmentLabel.Text = alignment.ToString();
 
-                            hpValueLabel.Text = hitpoints.ToString();
-                            acValueLabel.Text = armorClass.ToString();
-                            speedValueLabel.Text = speed.ToString();
+                            //add nice divider line 
+                            lineString = "________________________________________________________________________________";
 
-                            strValueLabel.Text = strength.ToString();
-                            dexValueLabel.Text = dexterity.ToString();
-                            conValueLabel.Text = constitution.ToString();
-                            intValueLabel.Text = intelligence.ToString();
-                            wisValueLabel.Text = wisdom.ToString();
-                            chaValueLabel.Text = charisma.ToString();
+                           //add scrollbars to ensure users and real whole monster
+                            monsterBox.ScrollBars = ScrollBars.Vertical;
+                            //fill monsterbox with values from variables
+                            monsterBox.Text = monName + "      " + " CR:" + challenge_rateing.ToString() + System.Environment.NewLine +
+                                             monSize + "      " + type + "      " + subtype + "      " + alignment + System.Environment.NewLine +
+                                             lineString + System.Environment.NewLine +
+                                             " HP: " + hitpoints + "   AC:  " + armorClass + "  Speed:   " + speed + System.Environment.NewLine +
+                                             lineString + System.Environment.NewLine +
+                                             "STR: " + strength + "   DEX: " + dexterity + "   CON: " + constitution + "   INT: " + intelligence + "   WIS: " + wisdom + "   CHA: " + charisma + System.Environment.NewLine +
+                                             lineString + System.Environment.NewLine +
+                                             dmgVul + System.Environment.NewLine +
+                                             dmgres + System.Environment.NewLine +
+                                             dmgImu + System.Environment.NewLine +
+                                             condition + System.Environment.NewLine +
+                                             senses + System.Environment.NewLine +
+                                             lang + System.Environment.NewLine +
+                                             lineString + System.Environment.NewLine +
+                                             special1 + System.Environment.NewLine +
+                                             special2 + System.Environment.NewLine +
+                                             special3 + System.Environment.NewLine +
+                                             action1 + System.Environment.NewLine +
+                                             action2 + System.Environment.NewLine +
+                                             action3 + System.Environment.NewLine +
+                                             action4 + System.Environment.NewLine +
+                                             action5 + System.Environment.NewLine;
 
+                            ;
                             // .Text = monName.ToString();
                         }
                     }
@@ -206,9 +221,10 @@ namespace DMCompainion
                     //    conn.Close();
                     //}
                 }
+                conn.Close();
             }
         }
-
+        //This Method calcualtes the EXP based on the calcualtions found in the DMG page 82
         private double ExpCalc(int partyLevel)
         {
             if (partylvl == 1)
@@ -734,7 +750,7 @@ namespace DMCompainion
                 }
             }
         }
-
+        //This Method converts EXP budget value in to Challenge rating 
         private int ChallegeRatingFinder(double perMonsterExp)
         {
             if (perMonsterExp >= 155000)
@@ -809,7 +825,7 @@ namespace DMCompainion
             {
                 return challenge_rateing = 13;
             }
-            
+
             if (perMonsterExp >= 8400)
             {
                 return challenge_rateing = 12;
@@ -880,7 +896,8 @@ namespace DMCompainion
                 return challenge_rateing = 30;
             }
         }
-        public  string SafeGetString( SQLiteDataReader reader, int colIndex)
+        //Checks value for a value if its null then returns a empty string to prevent issues in sql return values
+        public string SafeGetString(SQLiteDataReader reader, int colIndex)
         {
             if (!reader.IsDBNull(colIndex))
             {
