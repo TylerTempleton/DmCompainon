@@ -11,6 +11,7 @@ namespace DMCompainion
     public partial class RandomEncounter : Form
     {// connection string to MySql database
         private string conn_string = "data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
+
         //initalize variables
         private string monName, monSize, hitpoints, armorClass, speed, alignment, type, subtype, strength, dexterity, constitution, intelligence, wisdom, charisma, conSave, intSave, wisSave, dmgVul, dmgres, dmgImu,
          condition, senses, lang, lineString, special1, special2, special3, action1, action2, action3, action4, action5;
@@ -51,7 +52,7 @@ namespace DMCompainion
 
             //assign base exp to exp before multipliers
             baseExp = exp;
-           
+
             //Encounter Multipliers
             if (numMonsters == 2)
             {
@@ -114,8 +115,7 @@ namespace DMCompainion
             //Console.WriteLine("exp Value " + exp.ToString());
             //Console.WriteLine("permonster Value " + perMonsterExp.ToString());
             //Console.WriteLine("Challenge rating " + challenge_rateing.ToString());
-            
-            
+
             //show EXP budget labels  for user
             bexpLabel.Visible = true;
             besxpValue.Visible = true;
@@ -179,10 +179,10 @@ namespace DMCompainion
                             //call safegetstring if columnn can be null
                             //string  = reader.GetString(reader.GetOrdinal(""));
 
-                            //add nice divider line 
+                            //add nice divider line
                             lineString = "________________________________________________________________________________";
 
-                           //add scrollbars to ensure users and real whole monster
+                            //add scrollbars to ensure users and real whole monster
                             monsterBox.ScrollBars = ScrollBars.Vertical;
                             //fill monsterbox with values from variables
                             monsterBox.Text = monName + "      " + " CR:" + challenge_rateing.ToString() + System.Environment.NewLine +
@@ -224,6 +224,7 @@ namespace DMCompainion
                 conn.Close();
             }
         }
+
         //This Method calcualtes the EXP based on the calcualtions found in the DMG page 82
         private double ExpCalc(int partyLevel)
         {
@@ -235,23 +236,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 25;
-                        break;
+                       
 
                     case "Medium":
                         return exp = 50;
-                        break;
+                       
 
                     case "Hard":
                         return exp = 75;
-                        break;
+                       
 
                     case "Deadly":
                         return exp = 100;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 2)
@@ -261,23 +262,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 50;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 100;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 150;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 200;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 3)
@@ -287,23 +288,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 75;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 150;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 225;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 400;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 4)
@@ -313,23 +314,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 125;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 250;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 375;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 500;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 5)
@@ -339,23 +340,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 250;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 500;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 750;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 1100;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 6)
@@ -365,23 +366,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 300;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 600;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 900;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 1400;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 7)
@@ -391,23 +392,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 350;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 750;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 1100;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 1700;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 8)
@@ -417,23 +418,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 450;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 900;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 1400;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 2100;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 9)
@@ -443,23 +444,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 600;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 1200;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 1600;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 2400;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 10)
@@ -469,23 +470,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 600;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 1200;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 1900;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 2800;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 11)
@@ -495,23 +496,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 800;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 1600;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 2400;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 3600;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 12)
@@ -521,23 +522,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 1000;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 2000;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 3000;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 4500;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 13)
@@ -547,23 +548,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 1100;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 2200;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 3400;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 5100;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 14)
@@ -573,23 +574,24 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 1250;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 2500;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 3800;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 5700;
-                        break;
+                        
 
                     default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
+                        return exp = 0;
+                        
                 }
             }
             else if (partylvl == 15)
@@ -599,23 +601,24 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 1400;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 2800;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 4300;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 6400;
-                        break;
+                        
 
                     default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
+                        return exp = 0;
+                        
                 }
             }
             else if (partylvl == 16)
@@ -625,23 +628,24 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 1600;
-                        break;
+
 
                     case "Medium":
                         return exp = 3200;
-                        break;
+
 
                     case "Hard":
                         return exp = 4800;
-                        break;
+
 
                     case "Deadly":
                         return exp = 7200;
-                        break;
+
 
                     default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
+                        return exp = 0;
+
                 }
             }
             else if (partylvl == 17)
@@ -651,23 +655,24 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 2000;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 3900;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 5900;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 8800;
-                        break;
+                        
 
                     default:
-                        Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
+                        return exp = 0;
+                        
                 }
             }
             else if (partylvl == 18)
@@ -677,23 +682,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 2100;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 4200;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 6300;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 9500;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0;
-                        break;
+                        
                 }
             }
             else if (partylvl == 19)
@@ -703,23 +708,23 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 2400;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 4900;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 7300;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 10900;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection."); return exp = 0; ;
-                        break;
+                        
                 }
             }
             else
@@ -729,28 +734,29 @@ namespace DMCompainion
                 {
                     case "Easy":
                         return exp = 2800;
-                        break;
+                        
 
                     case "Medium":
                         return exp = 5700;
-                        break;
+                        
 
                     case "Hard":
                         return exp = 8500;
-                        break;
+                        
 
                     case "Deadly":
                         return exp = 12700;
-                        break;
+                        
 
                     default:
                         Console.WriteLine("Bugger, something went wrong in the difficulty selection.");
                         return exp = 0;
-                        break;
+                        
                 }
             }
         }
-        //This Method converts EXP budget value in to Challenge rating 
+
+        //This Method converts EXP budget value in to Challenge rating
         private int ChallegeRatingFinder(double perMonsterExp)
         {
             if (perMonsterExp >= 155000)
@@ -896,6 +902,7 @@ namespace DMCompainion
                 return challenge_rateing = 30;
             }
         }
+
         //Checks value for a value if its null then returns a empty string to prevent issues in sql return values
         public string SafeGetString(SQLiteDataReader reader, int colIndex)
         {

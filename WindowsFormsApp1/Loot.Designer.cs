@@ -50,6 +50,7 @@
             // 
             // crValueBox
             // 
+            this.crValueBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.crValueBox.FormattingEnabled = true;
             this.crValueBox.Items.AddRange(new object[] {
             "0-4",
@@ -60,7 +61,6 @@
             this.crValueBox.Name = "crValueBox";
             this.crValueBox.Size = new System.Drawing.Size(121, 21);
             this.crValueBox.TabIndex = 6;
-            this.crValueBox.Text = "-Select CR-";
             // 
             // typelabel
             // 
@@ -74,6 +74,7 @@
             // 
             // treasureTypeBox
             // 
+            this.treasureTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.treasureTypeBox.FormattingEnabled = true;
             this.treasureTypeBox.Items.AddRange(new object[] {
             "Individual Treasure",
@@ -83,7 +84,6 @@
             this.treasureTypeBox.Name = "treasureTypeBox";
             this.treasureTypeBox.Size = new System.Drawing.Size(138, 21);
             this.treasureTypeBox.TabIndex = 8;
-            this.treasureTypeBox.Text = "-Select Loot Type-";
             // 
             // lootGenButton
             // 

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dmCompainion", "WindowsFormsApp1\dmCompainion.csproj", "{992D9F23-B501-41AD-9F69-136DD41EB4DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dmCompainionTests", "dmCompainionTests\dmCompainionTests.csproj", "{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,12 @@ Global
 		{992D9F23-B501-41AD-9F69-136DD41EB4DE}.part2|Any CPU.Build.0 = part2|Any CPU
 		{992D9F23-B501-41AD-9F69-136DD41EB4DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{992D9F23-B501-41AD-9F69-136DD41EB4DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.part2|Any CPU.ActiveCfg = Release|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.part2|Any CPU.Build.0 = Release|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C4EAC5-11FC-45BE-B0F4-C655A3A26F19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

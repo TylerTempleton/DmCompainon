@@ -188,6 +188,7 @@
             // 
             // difficultyBox
             // 
+            this.difficultyBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.difficultyBox.FormattingEnabled = true;
             this.difficultyBox.Items.AddRange(new object[] {
             "Easy",
@@ -198,7 +199,6 @@
             this.difficultyBox.Name = "difficultyBox";
             this.difficultyBox.Size = new System.Drawing.Size(121, 21);
             this.difficultyBox.TabIndex = 12;
-            this.difficultyBox.Text = "Easy";
             // 
             // encounterButton
             // 

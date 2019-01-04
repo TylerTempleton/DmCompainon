@@ -208,13 +208,14 @@ namespace DMCompainion
                         {
                             MessageBox.Show("Data Updated");
                         }
-
+                        // close connection to sql
                         conn.Close();
                     }
                 }
             }
         }
 
+        //if the image box is clicked aloows user to insert a new image file
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             OpenFileDialog camImage = new OpenFileDialog();

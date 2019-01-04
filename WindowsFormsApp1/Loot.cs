@@ -34,6 +34,7 @@ namespace DMCompainion
         private void LootGenButton_Click(object sender, EventArgs e)
         {  //clear box of previous text
             treasureBox.Clear();
+            treasure = null;
             // get values from dropdown boxes
             lootType = (treasureTypeBox.Text);
             challengeRating = (crValueBox.Text);
@@ -49,7 +50,6 @@ namespace DMCompainion
             {
                 GenerateTreasureHoard(challengeRating);
             }
-            
             else if (lootType == "One Loot Table to Rule Them All")
             {
                 GenerateOLTtRTA();
@@ -66,7 +66,6 @@ namespace DMCompainion
 
         private void treasureBox_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         //method to get basic small amount of money loot based on level/challenge rateing
@@ -235,15 +234,15 @@ namespace DMCompainion
                 else
                 {
                     return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
-                   
                 }
             }
-            //catch all if somehow the value isn't between 1-100 
+            //catch all if somehow the value isn't between 1-100
             else
             {
                 return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
             }
         }
+
         //Method generates large chunk of treasure in the form of money, gems, art and magic items
         private string GenerateTreasureHoard(object selectedValue)
         {
@@ -451,7 +450,7 @@ namespace DMCompainion
             {//generates baseline amount of money for the 11-16 tier
                 dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) * 1000);
                 treasure = treasure + dice.ToString() + " Gold pieces,  ";
-                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) +DiceRoll(6) * 100);
+                dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) + DiceRoll(6) + DiceRoll(6) * 100);
                 treasure = treasure + dice.ToString() + " Platinum pieces ";
                 treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
                 if (randomNumber <= 3)
@@ -542,157 +541,156 @@ namespace DMCompainion
                     return treasure;
                 }
             }
-            // Catch all for values outside of 1-100 
+            // Catch all for values outside of 1-100
             else
             {
                 treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR RANDOMNUMBER VALUE NOT BETWEEN 1 - 100 ";
                 return treasure;
             }
         }
-
+        //Generates  magic loot times the number of times rolled on dice
         private string MagicTableE(int dice)
-        
-            {//repeat method equal to number rolled on the dice
-                for (int i = 0; i < dice; i++)
 
-                {
+        {
+            Console.WriteLine("dice value: " + dice);
+            //repeat method equal to number rolled on the dice
+            for (int i = 0; i < dice; i++)
+
+            {
+                
                 int tableroll = DiceRoll(100);
 
                 if (tableroll <= 30)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll(8th LVL) ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 55)
+                else if (tableroll <= 55)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Storm Giant's Strength ";
-                    return treasure;
-
+                    
                 }
-                if (tableroll <= 70)
+                else if (tableroll <= 70)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Supreme Healing ";
-                    return treasure;
-
+                    
                 }
-                if (tableroll <= 85)
+                else if (tableroll <= 85)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll (9th LVL) ";
-                    return treasure;
-
+                    
                 }
-                if (tableroll <= 93)
+                else if (tableroll <= 93)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Universal Solvent ";
-                    return treasure;
-
+                    
                 }
-                if (tableroll <= 98)
+                else if (tableroll <= 98)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Arrow of Slaying ";
-                    return treasure;
-
+                    
                 }
-                if (tableroll <= 100)
+               else  if (tableroll <= 100)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Sovereign Glue ";
-                    return treasure;
-
+                    
                 }
                 else
-                    {
-                        treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
-                        return treasure;
-                    }
-
+                {
+                    treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
+                    return treasure;
                 }
-                //return treasures generated to treasureBox
-                return treasure;
             }
-
-            private string MagicTableD(int dice)
+            //return treasures generated to treasureBox
+            return treasure;
+        }
+        //Generates  magic loot times the number of times rolled on dice
+        private string MagicTableD(int dice)
         {//repeat method equal to number rolled on the dice
+            Console.WriteLine("dice value: " + dice);
             for (int i = 0; i < dice; i++)
 
             {
+               
                 int tableroll = DiceRoll(100);
-
-                if (tableroll <= 20)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Supreme Healing ";
-                    return treasure;
-                }
-                if (tableroll <= 30)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  potion of Invisibility ";
-                    return treasure;
-                }
-                if (tableroll <= 40)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Speed ";
-                    return treasure;
-                }
-                if (tableroll <= 50)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (6th LVL) ";
-                    return treasure;
-                }
-                if (tableroll <= 57)
-                {
-                    treasure = treasure + System.Environment.NewLine + " Spell Scroll (7th LVL) ";
-                    return treasure;
-                }
-                if (tableroll <= 62)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Ammunition +3 ";
-                    return treasure;
-                }
-                if (tableroll <= 67)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Oil of Sharpness ";
-                    return treasure;
-                }
-                if (tableroll <= 72)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Flying ";
-                    return treasure;
-                }
-                if (tableroll <= 77)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Cloud Giant's Strength  ";
-                    return treasure;
-                }
-                if (tableroll <= 82)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Longevity ";
-                    return treasure;
-                }
-                if (tableroll <= 87)
-                {
-                    treasure = treasure + System.Environment.NewLine + " Potion of Vitality ";
-                    return treasure;
-                }
-                if (tableroll <= 92)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (8th LVL) ";
-                    return treasure;
-                }
-                if (tableroll <= 95)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Horseshoes of a Zephyr ";
-                    return treasure;
-                }
                 if (tableroll <= 98)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Nolzuf's Marvelous Pigments ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 99)
+                else if (tableroll <= 95)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Horseshoes of a Zephyr ";
+                    
+                }
+                else if (tableroll <= 92)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (8th LVL) ";
+                    
+                }
+
+                else if (tableroll <= 87)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Vitality ";
+                    
+                }
+                else if (tableroll <= 82)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Longevity ";
+                    
+                }
+                else if (tableroll <= 77)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Cloud Giant's Strength  ";
+                    
+                }
+
+                else if (tableroll <= 72)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Flying ";
+                    
+                }
+                else if (tableroll <= 67)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Oil of Sharpness ";
+                    
+                }
+                else if (tableroll <= 62)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Ammunition +3 ";
+                    
+                }
+                else if (tableroll <= 57)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (7th LVL) ";
+                    
+                }
+                else if (tableroll <= 50)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Spell Scroll (6th LVL) ";
+                    
+                }
+                else if (tableroll <= 40)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Speed ";
+                    
+                }
+                else if (tableroll <= 30)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Invisibility ";
+                    
+                }
+                else if (tableroll <= 20)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Supreme Healing ";
+                    
+                }
+                else if (tableroll == 99)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Bag of Devouring ";
                     return treasure;
                 }
-                if (tableroll == 100)
+                else if (tableroll == 100)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Portable Hole ";
                     return treasure;
@@ -702,420 +700,423 @@ namespace DMCompainion
                     treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
                     return treasure;
                 }
-
             }
             //return treasures generated to treasureBox
             return treasure;
         }
-        //generates middle to high power magic loot times the number of times rolled on dice
+
+        //Generates  magic loot times the number of times rolled on dice
         private string MagicTableC(int dice)
         {//repeat method equal to number rolled on the dice
+            Console.WriteLine("dice value: " + dice);
             for (int i = 0; i < dice; i++)
-
             {
+
                 int tableroll = DiceRoll(100);
 
-                if (tableroll <= 15)
-                {
-                    treasure = treasure + System.Environment.NewLine + "  Potion of Superior Healing";
-                    return treasure;
-                }
+                
                 if (tableroll <= 22)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll(lvl 4)";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 27)
+                else if (tableroll <= 27)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Ammunition +2";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 32)
+                else if (tableroll <= 32)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Clairvoyance";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 37 )
+                else if (tableroll <= 37)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Potion of Diminution ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Diminution ";
+                    
                 }
-                if (tableroll <= 42)
+                else if (tableroll <= 42)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Gaseous Form";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 47)
+                else if (tableroll <= 47)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Frost Giant Strength";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 52 )
+                else if (tableroll <= 52)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Stone Giant Strength";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 57)
+                else if (tableroll <= 57)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Heroism";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 62)
+                else if (tableroll <= 62)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Invulnerability";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 67)
+                else if (tableroll <= 67)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Potion of Mind Reading ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Mind Reading ";
+                    
                 }
-                if (tableroll <= 72 )
+                else if (tableroll <= 72)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll (5th Lvl) ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 75)
+                else if (tableroll <= 75)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Elixir of Health ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 78)
+                else if (tableroll <= 78)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Oil of Etherealness ";
-                    return treasure;
+                    
                 }
-                if (tableroll <=81 )
+                else if (tableroll <= 81)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Fire Giant Strength ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 84)
+                else if (tableroll <= 84)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Quaal's Feather Token ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 87)
+                else if (tableroll <= 87)
                 {
                     treasure = treasure + System.Environment.NewLine + " Scroll of Protection  ";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 89)
+                else if (tableroll <= 89)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Bag of Beans ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Bag of Beans ";
+                    
                 }
-                if (tableroll <= 91)
+                else if (tableroll <= 91)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Bead of Force ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Bead of Force ";
+                    
                 }
-                if (tableroll == 92 )
+                else if (tableroll <= 15)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Chime of Opening ";
-                    return treasure;
+                   
+                    treasure = treasure + System.Environment.NewLine + "  Potion of Superior Healing";
+                    
                 }
-                if (tableroll == 93)
+                else if (tableroll == 92)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Decanter of Endless Water ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Chime of Opening ";
+                    
                 }
-                if (tableroll ==94)
+                else if (tableroll == 93)
                 {
-                    treasure = treasure + System.Environment.NewLine + " Eyes of Minute Seeing ";
-                    return treasure;
+                    treasure = treasure + System.Environment.NewLine + "  Decanter of Endless Water ";
+                    
                 }
-                if (tableroll == 95)
+                else if (tableroll == 94)
+                {
+                    treasure = treasure + System.Environment.NewLine + "  Eyes of Minute Seeing ";
+                    
+                }
+                else if (tableroll == 95)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Folding Ship ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 96)
+                else if (tableroll == 96)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Heward's Handy Havershack ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 97)
+                else if (tableroll == 97)
                 {
                     treasure = treasure + System.Environment.NewLine + " Horseshoes of Speed ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 98)
+                else if (tableroll == 98)
                 {
                     treasure = treasure + System.Environment.NewLine + " Necklace of Fireballs ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 99)
+                else if (tableroll == 99)
                 {
                     treasure = treasure + System.Environment.NewLine + " Periapt of Health ";
-                    return treasure;
+                    
                 }
-                if (tableroll == 100)
+                else if (tableroll == 100)
                 {
                     treasure = treasure + System.Environment.NewLine + " Sending Stones ";
-                    return treasure;
+                    
                 }
                 else
                 {
                     treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100 ";
-                    return treasure;
+                    
                 }
-
             }
             //return treasures generated to treasureBox
             return treasure;
         }
 
-        //Generate middling magic power loot times the number of times rolled on dice
+        //Generate magic  loot times the number of times rolled on dice
         private string MagicTableB(int dice)
         {
+            Console.WriteLine("dice value: " + dice);
             for (int i = 0; i < dice; i++)
             {
+                
                 int tableroll = DiceRoll(100);
 
                 if (tableroll <= 15)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Greater Healing";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 22)
+                else if (tableroll <= 22)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Fire Breathing)";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 29)
+                else if (tableroll <= 29)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Resistance";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 34)
+                else if (tableroll <= 34)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Ammunition +1";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 39)
+                else if (tableroll <= 39)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Animal Friendship";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 44)
+                else if (tableroll <= 44)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Hill Giant's Strength";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 49)
+                else if (tableroll <= 49)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Growth";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 54)
+               else if (tableroll <= 54)
                 {
                     treasure = treasure + System.Environment.NewLine + " Potion of WaterBreathing";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 59)
+                else if (tableroll <= 59)
                 {
                     treasure = treasure + System.Environment.NewLine + " Spell Scroll (lvl2)";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 64)
+                else if (tableroll <= 64)
                 {
                     treasure = treasure + System.Environment.NewLine + " Spell Scroll (lvl3)";
-                    return treasure;
+                   
                 }
-                
-                if (tableroll <= 67)
+
+                else if (tableroll <= 67)
                 {
                     treasure = treasure + System.Environment.NewLine + " Bag of Holding";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 70)
+                else if (tableroll <= 70)
                 {
                     treasure = treasure + System.Environment.NewLine + " Keoghtom's Ointment";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 73)
+               else  if (tableroll <= 73)
                 {
                     treasure = treasure + System.Environment.NewLine + " Oil of Slipperiness";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 75)
+               else if (tableroll <= 75)
                 {
                     treasure = treasure + System.Environment.NewLine + " Dust of Disapperence";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 77)
+                else if (tableroll <= 77)
                 {
                     treasure = treasure + System.Environment.NewLine + " Dust of Dryness";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 79)
+                else if (tableroll <= 79)
                 {
                     treasure = treasure + System.Environment.NewLine + " Dust of Sneezing and choking";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 81)
+               else if (tableroll <= 81)
                 {
                     treasure = treasure + System.Environment.NewLine + " Elemental Gem";
-                    return treasure;
+                   
                 }
-                if (tableroll <= 83)
+               else if (tableroll <= 83)
                 {
                     treasure = treasure + System.Environment.NewLine + " Philter of Love";
-                    return treasure;
+                   
                 }
-                if (tableroll == 84)
+                else if (tableroll == 84)
                 {
                     treasure = treasure + System.Environment.NewLine + " Alchemy Jug";
-                    return treasure;
+                   
                 }
-                if (tableroll == 85)
+                else if (tableroll == 85)
                 {
                     treasure = treasure + System.Environment.NewLine + " Cap of Water Breathing";
-                    return treasure;
+                   
                 }
-                if (tableroll == 86)
+                else if (tableroll == 86)
                 {
                     treasure = treasure + System.Environment.NewLine + " Cloak of the Manta Ray";
-                    return treasure;
+                   
                 }
-                if (tableroll == 87)
+                else if (tableroll == 87)
                 {
                     treasure = treasure + System.Environment.NewLine + " Driftglobe";
-                    return treasure;
+                   
                 }
-                if (tableroll == 88)
+                else if (tableroll == 88)
                 {
                     treasure = treasure + System.Environment.NewLine + " Goggles of Night";
-                    return treasure;
+                   
                 }
-                if (tableroll == 89)
+                else if (tableroll == 89)
                 {
                     treasure = treasure + System.Environment.NewLine + " Helm of Comprehending Languages";
-                    return treasure;
+                   
                 }
-                if (tableroll == 90)
+                else if (tableroll == 90)
                 {
                     treasure = treasure + System.Environment.NewLine + " Immovable Rod";
-                    return treasure;
+                   
                 }
-                if (tableroll == 91)
+                else if (tableroll == 91)
                 {
                     treasure = treasure + System.Environment.NewLine + " Lantern of Revealing";
-                    return treasure;
+                   
                 }
-                if (tableroll == 92)
+               else  if (tableroll == 92)
                 {
                     treasure = treasure + System.Environment.NewLine + " Mariner's Armor";
-                    return treasure;
+                   
                 }
-                if (tableroll == 93)
+                else if (tableroll == 93)
                 {
                     treasure = treasure + System.Environment.NewLine + " Mithral Armour";
-                    return treasure;
+                   
                 }
-                if (tableroll == 94)
+                else if (tableroll == 94)
                 {
                     treasure = treasure + System.Environment.NewLine + " Potion of Poison";
-                    return treasure;
+                   
                 }
-                if (tableroll == 95)
+                else if (tableroll == 95)
                 {
                     treasure = treasure + System.Environment.NewLine + " Ring of Swimming";
-                    return treasure;
+                   
                 }
-                if (tableroll == 96)
+               else if (tableroll == 96)
                 {
                     treasure = treasure + System.Environment.NewLine + " Robe of Useful Items";
-                    return treasure;
+                   
                 }
-                if (tableroll == 97)
+                else if (tableroll == 97)
                 {
                     treasure = treasure + System.Environment.NewLine + " Rope of Climbing";
-                    return treasure;
+                   
                 }
-                if (tableroll == 98)
+                else if (tableroll == 98)
                 {
                     treasure = treasure + System.Environment.NewLine + " Saddle of the Cavalier";
-                    return treasure;
+                   
                 }
-                if (tableroll == 99)
+                else if (tableroll == 99)
                 {
                     treasure = treasure + System.Environment.NewLine + " Wand of Magic Detection";
-                    return treasure;
+                   
                 }
-                if (tableroll == 100)
+                else if (tableroll == 100)
                 {
                     treasure = treasure + System.Environment.NewLine + " Wand of Secrets";
-                    return treasure;
+                   
                 }
-               
                 else
                 {
                     treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100";
-                    return treasure;
+                   
                 }
             }
-        
+
             return treasure;
         }
 
-        //generates low magic item loot times the number of times rolled on dice
+        //Generates low magic item loot times the number of times rolled on dice
         private string MagicTableA(int dice)
         {
+            Console.WriteLine("dice value: " + dice);
             for (int i = 0; i < dice; i++)
             {
                 int tableroll = DiceRoll(100);
                 if (tableroll <= 50)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Healing";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 60)
+                 else if (tableroll <= 60)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll (Cantrip)";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 70)
+               else if (tableroll <= 70)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Climbing";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 90)
+                else if (tableroll <= 90)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll (lvl 1)";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 94)
+                else if (tableroll <= 94)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Spell Scroll (lvl 2)";
-                    return treasure;
+                    
                 }
-                if (tableroll <= 98)
+                else if (tableroll <= 98)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Potion of Greater healing";
-                    return treasure;
+                    
                 }
-                if (tableroll == 99)
+                else if (tableroll == 99)
                 {
                     treasure = treasure + System.Environment.NewLine + "  Bag of Holding";
-                    return treasure;
+                    
                 }
-                if (tableroll == 100)
+               else if (tableroll == 100)
                 {
                     treasure = treasure + System.Environment.NewLine + " DriftGlobe ";
-                    return treasure;
+                    
                 }
                 else
                 {
                     treasure = treasure + System.Environment.NewLine + "ERROR: OUT OF BOUNDS ERROR TABLEROLL VALUE NOT BETWEEN 1 - 100";
-                    return treasure;
+                    
                 }
             }
             return treasure;
         }
 
-      
         //Method Accesses database's Loot table to get 1 random magic item
         private string GenerateOLTtRTA()
         {
@@ -1141,7 +1142,7 @@ namespace DMCompainion
                             lootCat = SafeGetString(reader, reader.GetOrdinal("Category"));
                             lootProp = SafeGetString(reader, reader.GetOrdinal("Properties"));
                             lootReq = SafeGetString(reader, reader.GetOrdinal("Requirements"));
-                            treasure = treasure +System.Environment.NewLine + lootName + "  " + lootCat + System.Environment.NewLine + lootDesc + System.Environment.NewLine + lootValue + "  " + lootRarity + "  " + lootWeight + System.Environment.NewLine + lootProp + System.Environment.NewLine + lootReq + System.Environment.NewLine;
+                            treasure = treasure + System.Environment.NewLine + lootName + "  " + lootCat + System.Environment.NewLine + lootDesc + System.Environment.NewLine + lootValue + "  " + lootRarity + "  " + lootWeight + System.Environment.NewLine + lootProp + System.Environment.NewLine + lootReq + System.Environment.NewLine;
                         }
                     }
                 }
@@ -1150,7 +1151,7 @@ namespace DMCompainion
             return treasure;
         }
 
-        //Method used to check if string values in datareader ar not null if null return an empty string 
+        //Method used to check if string values in datareader ar not null if null return an empty string
         public string SafeGetString(SQLiteDataReader reader, int colIndex)
         {
             if (!reader.IsDBNull(colIndex))
@@ -1169,7 +1170,7 @@ namespace DMCompainion
             treasureBox.Text = treasure;
         }
 
-        //This Method takes a number and "rolls" like a dice to randomly generate a number between 1 and the number entered  
+        //This Method takes a number and "rolls" like a dice to randomly generate a number between 1 and the number entered
         private int DiceRoll(int x)
         {
             return random.Next(1, x + 1);

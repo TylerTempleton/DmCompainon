@@ -1,4 +1,9 @@
-﻿using System;
+﻿//
+//This class is used to create a new campign in the New Campaign Window
+//This will allow the user to input a new campaign name, map/image, and description/overview of the campign
+//Made by Tyler Templeton
+//
+using System;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -14,6 +19,7 @@ namespace DMCompainion
             InitializeComponent();
         }
 
+        //button to upload a new Campaign map image
         private void uploadButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog camImage = new OpenFileDialog();
@@ -24,6 +30,7 @@ namespace DMCompainion
             }
         }
 
+        //button to submit campaign data
         private void submitButton_Click(object sender, EventArgs e)
         {//connection string
             string conn_string = "Data source = C:\\Users\\TNT\\Source\\Repos\\DmCompainon\\dndDatabase.db";
@@ -34,16 +41,18 @@ namespace DMCompainion
 
                 string stm = "SELECT* FROM campaigns WHERE campaignsName = @name";
                 using (SQLiteCommand cmd = new SQLiteCommand(stm, conn))
-                {
+                {//get name parameter to query
                     cmd.Parameters.AddWithValue("@name", nameBox.Text);
 
                     cmd.ExecuteNonQuery();
-
+                    //initialize reader
                     SQLiteDataReader reader = cmd.ExecuteReader();
+                    //if there is a match
                     if (reader.HasRows)
                     {
                         MessageBox.Show("That name is already taken, Try another!");
                     }
+                    //otherwise insert data to sqlite database
                     else
                     {
                         reader.Close();
@@ -51,6 +60,7 @@ namespace DMCompainion
                         cmd.Parameters.AddWithValue("@name", nameBox.Text);
                         cmd.Parameters.AddWithValue("@desc", descBox.Text);
                         Image image = previewPicture.Image;
+                        // if there is a value in image
                         if (image != null)
                         {
                             MemoryStream memoryStream = new MemoryStream();
@@ -74,6 +84,7 @@ namespace DMCompainion
             }
         }
 
+        // button to go back to main menu
         private void backButton_Click(object sender, EventArgs e)
         {
             CamSelect f2 = new CamSelect();

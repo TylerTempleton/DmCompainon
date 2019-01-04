@@ -86,7 +86,7 @@ namespace DMCompainion
         {
             Loot f9 = new Loot();
             //cNamePass cname = new cNamePass(f9.cNameLabelFill);
-           // cname(this.cNameLabel);
+            // cname(this.cNameLabel);
             f9.Show();
         }
     }
