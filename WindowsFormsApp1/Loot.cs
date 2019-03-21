@@ -256,7 +256,7 @@ namespace DMCompainion
                 treasure = treasure + dice.ToString() + " Silver pieces,  ";
                 dice = (DiceRoll(6) + DiceRoll(6) * 10);
                 treasure = treasure + dice.ToString() + " Gold pieces  ";
-                treasure = treasure + System.Environment.NewLine + "And" + System.Environment.NewLine;
+                treasure = treasure + System.Environment.NewLine + "And  " + System.Environment.NewLine;
 
                 if (randomNumber <= 6)
                 {
@@ -482,22 +482,43 @@ namespace DMCompainion
                 }
                 if (randomNumber <= 66)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6))* 1000);
+                    treasure = treasure + dice.ToString() + " Gold Pieces,   ";
+                    treasure = treasure + MagicTableD(DiceRoll(4));
                     return treasure;
                 }
                 if (randomNumber <= 74)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                    treasure = treasure + dice.ToString() + " Gold Pieces,   ";
+                    treasure = treasure + MagicTableE(DiceRoll(1));
                     return treasure;
+                
                 }
                 if (randomNumber <= 82)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                    treasure = treasure + dice.ToString() + " Gems,   ";
+                    treasure = treasure + MagicTableD(DiceRoll(1)) + MagicTableE(DiceRoll(1));
+                    
                     return treasure;
+                   
                 }
                 if (randomNumber <= 92)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                    treasure = treasure + dice.ToString() + " Art,   ";
+                    treasure = treasure + MagicTableD(DiceRoll(2)) + MagicTableE(DiceRoll(2));
+
+                   
                     return treasure;
                 }
                 if (randomNumber <= 100)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
+                    treasure = treasure + dice.ToString() + " Gold,   ";
+                    treasure = treasure + MagicTableD(DiceRoll(2)) + MagicTableE(DiceRoll(2));
+
                     return treasure;
                 }
                 else
@@ -505,7 +526,7 @@ namespace DMCompainion
                     return treasure + "ERROR: OUT OF BOUNDS ERROR DICEROLL VALUE NOT BETWEEN 1 - 100 ";
                 }
             }
-            if (challengeRating == "17")
+            if (challengeRating == "17+")
             {//generates baseline amount of money for the 17+ tier
                 dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 1000);
                 treasure = treasure + dice.ToString() + " Gold pieces,  ";
@@ -518,21 +539,33 @@ namespace DMCompainion
                     treasure = treasure + "Nothing Else ";
                     return treasure;
                 }
-                if (randomNumber >= 60)
+                if (randomNumber <= 60)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 5000);
+                    treasure = treasure + dice.ToString() + " Gold pieces,  " + MagicTableC(DiceRoll(6)) + MagicTableD(DiceRoll(6)); 
+                    
                     return treasure;
                 }
 
-                if (randomNumber >= 70)
+                if (randomNumber <= 70)
                 {
+                    dice = ((DiceRoll(4) + DiceRoll(4) + DiceRoll(4) ) * 7500);
+                    treasure = treasure + dice.ToString() + " Gold pieces,  " + MagicTableE(DiceRoll(6)) ;
+                   
                     return treasure;
                 }
-                if (randomNumber >= 95)
+                if (randomNumber <= 95)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 7500);
+                    treasure = treasure + dice.ToString() + " Gold pieces,  " + MagicTableD(DiceRoll(6)) + MagicTableE(DiceRoll(6)); ;
+
                     return treasure;
                 }
-                if (randomNumber >= 100)
+                if (randomNumber <= 100)
                 {
+                    dice = ((DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6) + DiceRoll(6)) * 10000);
+                    treasure = treasure + dice.ToString() + " Gold pieces,  " + MagicTableC(DiceRoll(6)) + MagicTableD(DiceRoll(6)) + MagicTableE(DiceRoll(6)) ;
+
                     return treasure;
                 }
                 else
