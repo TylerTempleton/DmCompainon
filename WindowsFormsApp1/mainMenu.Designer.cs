@@ -88,6 +88,7 @@
             // 
             // npcButton
             // 
+            this.npcButton.Enabled = false;
             this.npcButton.Location = new System.Drawing.Point(208, 356);
             this.npcButton.Name = "npcButton";
             this.npcButton.Size = new System.Drawing.Size(127, 24);
