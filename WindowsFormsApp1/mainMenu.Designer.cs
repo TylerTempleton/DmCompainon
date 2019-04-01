@@ -49,7 +49,7 @@
             this.mainlabel.AutoSize = true;
             this.mainlabel.BackColor = System.Drawing.Color.Transparent;
             this.mainlabel.Font = new System.Drawing.Font("Gabriola", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainlabel.Location = new System.Drawing.Point(295, -18);
+            this.mainlabel.Location = new System.Drawing.Point(293, -17);
             this.mainlabel.Name = "mainlabel";
             this.mainlabel.Size = new System.Drawing.Size(220, 88);
             this.mainlabel.TabIndex = 0;
@@ -160,11 +160,12 @@
             // cNameLabel
             // 
             this.cNameLabel.AutoSize = true;
-            this.cNameLabel.Location = new System.Drawing.Point(413, 70);
+            this.cNameLabel.Location = new System.Drawing.Point(411, 71);
             this.cNameLabel.Name = "cNameLabel";
             this.cNameLabel.Size = new System.Drawing.Size(0, 13);
             this.cNameLabel.TabIndex = 11;
             this.cNameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.cNameLabel.Visible = false;
             // 
             // MainMenu
             // 
