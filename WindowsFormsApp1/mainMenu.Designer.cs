@@ -49,7 +49,7 @@
             this.mainlabel.AutoSize = true;
             this.mainlabel.BackColor = System.Drawing.Color.Transparent;
             this.mainlabel.Font = new System.Drawing.Font("Gabriola", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainlabel.Location = new System.Drawing.Point(292, 9);
+            this.mainlabel.Location = new System.Drawing.Point(295, -18);
             this.mainlabel.Name = "mainlabel";
             this.mainlabel.Size = new System.Drawing.Size(220, 88);
             this.mainlabel.TabIndex = 0;
@@ -77,6 +77,7 @@
             // 
             // pcButton
             // 
+            this.pcButton.Enabled = false;
             this.pcButton.Location = new System.Drawing.Point(351, 326);
             this.pcButton.Name = "pcButton";
             this.pcButton.Size = new System.Drawing.Size(128, 24);
@@ -97,6 +98,7 @@
             // 
             // townButton
             // 
+            this.townButton.Enabled = false;
             this.townButton.Location = new System.Drawing.Point(494, 326);
             this.townButton.Name = "townButton";
             this.townButton.Size = new System.Drawing.Size(127, 24);
@@ -107,6 +109,7 @@
             // 
             // dunButton
             // 
+            this.dunButton.Enabled = false;
             this.dunButton.Location = new System.Drawing.Point(493, 357);
             this.dunButton.Name = "dunButton";
             this.dunButton.Size = new System.Drawing.Size(128, 23);
@@ -157,7 +160,7 @@
             // cNameLabel
             // 
             this.cNameLabel.AutoSize = true;
-            this.cNameLabel.Location = new System.Drawing.Point(321, 63);
+            this.cNameLabel.Location = new System.Drawing.Point(413, 70);
             this.cNameLabel.Name = "cNameLabel";
             this.cNameLabel.Size = new System.Drawing.Size(0, 13);
             this.cNameLabel.TabIndex = 11;
